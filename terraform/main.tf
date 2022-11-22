@@ -29,11 +29,6 @@ resource "aws_route_table_association" "wordpress_subnet" {
   route_table_id = aws_route_table.wordpress_gw.id
 }
 
-resource "aws_route_table_association" "wordpress_gw" {
-  gateway_id     = aws_internet_gateway.gw.id
-  route_table_id = aws_route_table.wordpress_gw.id
-}
-
 resource "aws_subnet" "wordpress" {
   vpc_id            = aws_vpc.wordpress.id
   cidr_block        = "10.0.1.0/24"
@@ -47,11 +42,12 @@ resource "aws_security_group" "allow_https" {
   vpc_id      = aws_vpc.wordpress.id
 
   ingress {
-    description = "TLS from VPC"
+    description = "TLS from everywhere"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.wordpress.cidr_block]
+    cidr_blocks = ["0.0.0.0/0"]
+    # cidr_blocks = [aws_vpc.wordpress.cidr_block]
   }
 
   tags = var.tags
@@ -63,11 +59,12 @@ resource "aws_security_group" "allow_http" {
   vpc_id      = aws_vpc.wordpress.id
 
   ingress {
-    description = "HTTP from VPC"
+    description = "HTTP from everywhere"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.wordpress.cidr_block]
+    cidr_blocks = ["0.0.0.0/0"]
+    # cidr_blocks = [aws_vpc.wordpress.cidr_block]
   }
 
   tags = var.tags
