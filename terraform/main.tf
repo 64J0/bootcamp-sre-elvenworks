@@ -1,43 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.16"
-    }
-
-    tls = {
-      source  = "hashicorp/tls"
-      version = "~> 4.0.4"
-    }
-
-    local = {
-      source  = "hashicorp/local"
-      version = "~> 2.2.3"
-    }
-  }
-
-  required_version = ">= 1.2.0"
-}
-
-# Conigure the AWS Provider
-provider "aws" {
-  region  = var.location
-  profile = var.profile
-  # access_key = "my-access-key"
-  # secret_key = "my-secret-key"
-}
-
-data "aws_ami" "ubuntu_20_04" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  owners = [var.canonical_id]
-}
-
 # Create a VPC
 resource "aws_vpc" "wordpress" {
   cidr_block       = "10.0.0.0/16"
@@ -69,11 +29,6 @@ resource "aws_route_table_association" "wordpress_subnet" {
   route_table_id = aws_route_table.wordpress_gw.id
 }
 
-resource "aws_route_table_association" "wordpress_gw" {
-  gateway_id     = aws_internet_gateway.gw.id
-  route_table_id = aws_route_table.wordpress_gw.id
-}
-
 resource "aws_subnet" "wordpress" {
   vpc_id            = aws_vpc.wordpress.id
   cidr_block        = "10.0.1.0/24"
@@ -87,11 +42,12 @@ resource "aws_security_group" "allow_https" {
   vpc_id      = aws_vpc.wordpress.id
 
   ingress {
-    description = "TLS from VPC"
+    description = "TLS from everywhere"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.wordpress.cidr_block]
+    cidr_blocks = ["0.0.0.0/0"]
+    # cidr_blocks = [aws_vpc.wordpress.cidr_block]
   }
 
   tags = var.tags
@@ -103,11 +59,12 @@ resource "aws_security_group" "allow_http" {
   vpc_id      = aws_vpc.wordpress.id
 
   ingress {
-    description = "HTTP from VPC"
+    description = "HTTP from everywhere"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.wordpress.cidr_block]
+    cidr_blocks = ["0.0.0.0/0"]
+    # cidr_blocks = [aws_vpc.wordpress.cidr_block]
   }
 
   tags = var.tags
