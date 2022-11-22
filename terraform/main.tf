@@ -52,7 +52,7 @@ resource "aws_internet_gateway" "gw" {
 }
 
 # 2. Route table + rota 0.0.0.0/0 "apontando" para o Internet Gateway
-resource "aws_route_table" "wordpress" {
+resource "aws_route_table" "wordpress_gw" {
   vpc_id = aws_vpc.wordpress.id
 
   route {
@@ -63,11 +63,11 @@ resource "aws_route_table" "wordpress" {
   tags = var.tags
 }
 
-# 3. Association da vpc + ec2 com a route table
-resource "aws_ec2_local_gateway_route_table_vpc_association" "example" {
-  local_gateway_route_table_id = aws_route_table.wordpress.id
-  vpc_id                       = aws_vpc.wordpress.id
-  tags                         = var.tags
+# 3. Association da subnet com a route table
+resource "aws_route_table_association" "wordpress_gw" {
+  gateway_id     = aws_internet_gateway.gw.id
+  subnet_id      = aws_subnet.wordpress.id
+  route_table_id = aws_route_table.wordpress_gw.id
 }
 
 resource "aws_subnet" "wordpress" {
