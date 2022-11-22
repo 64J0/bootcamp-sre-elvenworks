@@ -63,7 +63,13 @@ resource "aws_route_table" "wordpress" {
   tags = var.tags
 }
 
-# 3. Association da subnet com a route table
+# 3. Association da vpc + ec2 com a route table
+resource "aws_ec2_local_gateway_route_table_vpc_association" "example" {
+  local_gateway_route_table_id = aws_route_table.wordpress.id
+  vpc_id                       = aws_vpc.wordpress.id
+  tags                         = var.tags
+}
+
 resource "aws_subnet" "wordpress" {
   vpc_id            = aws_vpc.wordpress.id
   cidr_block        = "10.0.1.0/24"
