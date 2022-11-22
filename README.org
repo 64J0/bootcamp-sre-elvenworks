@@ -6,12 +6,12 @@
 Para provisionar os serviços na AWS, use os comandos:
 
 #+BEGIN_SRC shell :tangle no
-    cd terraform/
-
-    # é necessário ajustar o valor em var.profile para o seu profile.
-    terraform init
-    terraform plan # verifique o plano
-    terraform apply
+  cd terraform/
+  
+  # é necessário ajustar o valor em var.profile para o seu profile.
+  terraform init
+  terraform plan # verifique o plano
+  terraform apply
 #+END_SRC
 
 ** Requisitos & Critérios
