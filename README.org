@@ -1,0 +1,80 @@
+#+TITLE: Desafio final bootcamp ElvenWorks
+#+AUTHOR: Vinícius Gajo Marques Oliveira
+
+** Instruções
+
+Para provisionar os serviços na AWS, use os comandos:
+
+#+BEGIN_SRC shell :tangle no
+    cd terraform/
+
+    # é necessário ajustar o valor em var.profile para o seu profile.
+    terraform init
+    terraform plan # verifique o plano
+    terraform apply
+#+END_SRC
+
+** Requisitos & Critérios
+
+*** Requisitos
+
++ Automação de ambientes com Infras as Code: Criar recursos com o Terraform e
+  configurações das dependências/pacotes dentro do Linux com Ansible;
++ Provisionar 2 servidores Linux na AWS;
++ Instalar e configurar o Wordpress com Ansible na EC2;
++ Configurar banco de dados em outro servidor (RDS);
++ Arquitetura elástica com VMs e autoscaling: configurar load balancer;
++ Arquitetura com CDN/WAF na frente do wordpress;
++ Criar um ambiente mínimo de Monitoramento ou Observabilidade, usando
+  Prometheus, Grafana e 1P;
++ Criar indicadores para CPU, Memória, Disco e Request HTTP ou para The Four
+  Golden Signals (Latências, Tráfego, Erros e Saturação).
+
+*** Critérios
+
+- [ ] Conhecer os principais serviços da AWS (EC2, VPC, RDS Memcached, Load
+  Balancer, Autoscaling, WAF, CloudFront);
+- [ ] Entender a função dos principais serviços da AWS (EC2, VPC, RDS Memcached,
+  Load Balance, Autoscaling, WAF, CloudFront) e a sua correlação quando existir;
+- [ ] Aplicar boas práticas de mercado no provisionamento dos principais
+  serviços AWS. Exemplo: Launch Template, Tags, Gerenciamento de Conta e
+  Usuário, Controle de Data transfer (In/Out), Well Architected, FinOps;
+- [ ] Analisar a necessidade ou não do provisionamento de serviço na
+  infraestrutura;
+- [ ] Criar conta válida na AWS;
+- [ ] Conhecer Ansible, suas estruturas, módulos e comandos, usados para se
+  configurar o blog Wordpress;
+- [ ] Entender a função dos principais módulos usados para se configurar o blog
+  Wordpress;
+- [ ] Aplicar boas práticas de mecado na configurção do blog Wordpress. Exemplo:
+  variáveis, roles e coesão de código;
+- [ ] Analisar a necessidade ou não do uso de um módulo na configuração do blog
+  Wordpress;
+- [ ] Criar um projeto Ansible para configurar Wordpress no EC2;
+- [ ] Conhecer recurso ou módulos Terraform obrigatório (EC2, VPC, RDS) e não
+  obrigatórios (Mecached, Load Balancer, Autoscaling, WAF, CloudFront) da AWS;
+- [ ] Entender as principais estruturas do Terraform e a sua função (resources,
+  variaveis, outputs e módulos);
+- [ ] Aplicar as melhores práticas de mecado no provisionamento dos recursos na
+  AWC com Terraform. Exemplo: variáveis, condicionais, loops, modularização e
+  coesão de código;
+- [ ] Analisar a necessidade de refatoração para melhor manutenibilidade e
+  legibilidade de código;
+- [ ] Criar um projeto Terraform com os recurso obrigatório (EC2, VPC, RDS) e
+  não obrigatórios (Mecached, Load Balancer, Autoscaling, WAF, CloudFront);
+- [ ] Conhecer The Four Golden Signals(Latência, Tráfego, Erros e Saturação);
+- [ ] Entender a diferença entre Monitoramento e Observabilidade;
+- [ ] Aplicar conceitos SLAs, SLOs, SLIs e Error Budgets;
+- [ ] Analisar Indicadores(CPU, Memória, Disco e Request HTTP) ou The Four
+  Golden Signals(Latência, Tráfego, Erros e Saturação);
+- [ ] Criar um ambiente mínimo de Monitoramento ou Observabilidade, usando
+  Prometheus, Grafana e 1P;
+
+** Ideias
+
++ Usar a infraestrutura na AWS;
++ Provisionar os componentes com Terraform;
++ Gerenciar a configuração com Ansible;
++ Usar como exemplo de Literate DevOps;
++ Criar GitHub Actions para automatizar o processo de provisionamento e
+  destruição dos serviços;
