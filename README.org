@@ -1,7 +1,23 @@
 #+TITLE: Desafio final bootcamp ElvenWorks
 #+AUTHOR: Vinícius Gajo Marques Oliveira
 
-** Instruções
+* Introdução
+
+Este repositório guarda o projeto relacionado ao desafio final do bootcamp da
+ElvenWorks, terceira turma, 2022. Ao longo deste README irei apresentar tanto os
+requisitos e critérios, quanto minhas ideias de como implementar o projeto.
+
+O título do desafio foi: *Wordpress Turbinado na AWS*.
+
+* Instruções
+
+Para reproduzir o mesmo ambiente utilizado no desenvolvimento deste projeto,
+certifique-se ter as seguintes ferramentas disponíveis:
+
++ ~Terraform v1.3.5~
++ ~AWS CLI 2.8.12~
+
+** IaC - Terraform
 
 Para provisionar os serviços na AWS, use os comandos:
 
@@ -14,9 +30,9 @@ Para provisionar os serviços na AWS, use os comandos:
   terraform apply
 #+END_SRC
 
-** Requisitos & Critérios
+* Requisitos & Critérios
 
-*** Requisitos
+** Requisitos
 
 + Automação de ambientes com Infras as Code: Criar recursos com o Terraform e
   configurações das dependências/pacotes dentro do Linux com Ansible;
@@ -30,7 +46,7 @@ Para provisionar os serviços na AWS, use os comandos:
 + Criar indicadores para CPU, Memória, Disco e Request HTTP ou para The Four
   Golden Signals (Latências, Tráfego, Erros e Saturação).
 
-*** Critérios
+** Critérios
 
 - [ ] Conhecer os principais serviços da AWS (EC2, VPC, RDS Memcached, Load
   Balancer, Autoscaling, WAF, CloudFront);
@@ -70,11 +86,18 @@ Para provisionar os serviços na AWS, use os comandos:
 - [ ] Criar um ambiente mínimo de Monitoramento ou Observabilidade, usando
   Prometheus, Grafana e 1P;
 
-** Ideias
+* Ideias
 
-+ Usar a infraestrutura na AWS;
-+ Provisionar os componentes com Terraform;
-+ Gerenciar a configuração com Ansible;
-+ Usar como exemplo de Literate DevOps;
-+ Criar GitHub Actions para automatizar o processo de provisionamento e
+- [X] Usar a infraestrutura na AWS;
+- [ ] Provisionar os componentes com Terraform;
+- [ ] Gerenciar a configuração com Ansible;
+- [ ] Usar como exemplo de Literate DevOps;
+- [ ] Criar GitHub Actions para automatizar o processo de provisionamento e
   destruição dos serviços;
+
+* AWS CLI
+
+** Comandos Úteis
+
++ Listar os profiles: ~aws configure list-profiles~
++ Listar os buckets s3: ~aws s3 ls~
