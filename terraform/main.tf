@@ -64,9 +64,13 @@ resource "aws_route_table" "wordpress_gw" {
 }
 
 # 3. Association da subnet com a route table
+resource "aws_route_table_association" "wordpress_subnet" {
+  subnet_id      = aws_subnet.wordpress.id
+  route_table_id = aws_route_table.wordpress_gw.id
+}
+
 resource "aws_route_table_association" "wordpress_gw" {
   gateway_id     = aws_internet_gateway.gw.id
-  subnet_id      = aws_subnet.wordpress.id
   route_table_id = aws_route_table.wordpress_gw.id
 }
 
