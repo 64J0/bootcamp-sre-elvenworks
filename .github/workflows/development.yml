@@ -1,0 +1,49 @@
+name: "Terraform development"
+
+on:
+  pull_request:
+    paths:
+      - '**.tf'
+      - '**.tfvars'
+  workflow_dispatch: # manual trigger
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+  packages: read
+
+# Kill other jobs when we trigger this workflow by sending new commits
+# to the PR.
+# https://stackoverflow.com/a/72408109
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fmt:
+    runs-on: ubuntu-20.04
+    container:
+      image: 
+    defaults:
+      run:
+        working-directory: ./terraform
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Check Terraform format
+        run: terraform fmt -check
+
+  validate:
+    runs-on: ubuntu-20.04
+    needs: [fmt]
+    defaults:
+      run:
+        working-directory: ./terraform
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Validate Terraform configuration
+        run: terraform validate

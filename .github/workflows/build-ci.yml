@@ -1,0 +1,64 @@
+name: "Build CI image"
+
+on:
+  workflow_dispatch: # manual trigger
+
+defaults:
+  run:
+    shell: sh
+
+# GITHUB_TOKEN
+permissions:
+  contents: read
+  packages: write
+
+# Kill other jobs when we trigger this workflow by sending new commits
+# to the PR.
+# https://stackoverflow.com/a/72408109
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  BASE_IMAGE: "ghcr.io/64j0/bootcamp-sre-elvenworks/ci"
+
+jobs:
+  build_and_push_container:
+    name: Build and push the Docker container
+    runs-on: ubuntu-20.04
+    container:
+      image: docker:stable
+    services:
+      dockerdaemon:
+        image: docker:20.10.17-dind
+        env:
+          # Tell docker CLI how to talk to Docker daemon.
+          DOCKER_HOST: "tcp://dockerdaemon:2375/"
+          # Use the overlayfs driver for improved performance.
+          DOCKER_DRIVER: overlay2
+          # Disable TLS since we're running inside local network.
+          DOCKER_TLS_CERTDIR: ""
+    steps:
+      - name: Add required packages
+        run: |
+          apk update
+          apk add git
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup job environment
+        run: |
+          docker --version
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      - name: Build the image
+        run: |
+          # Check if this is necessary
+          git config --global --add safe.directory /__w/bootcamp-sre-elvenworks/bootcamp-sre-elvenworks
+          
+          SHORT_SHA=$(git rev-parse --short=16 HEAD)
+          LAST_COMMIT_DT=$(git log -1 --format="%at" | xargs -I{} date -d @{} +%Y.%m.%d-%H.%M.%S)
+          IMAGE="${BASE_IMAGE}:${LAST_COMMIT_DT}"
+          
+          echo "Image name: ${IMAGE}"
+
+          docker build --tag "${IMAGE}" --file ./Dockerfile "."
+          docker push "${IMAGE}"
