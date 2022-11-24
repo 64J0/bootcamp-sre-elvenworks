@@ -13,7 +13,7 @@ defaults:
 
 permissions:
   contents: read
-  packages: read
+  packages: write
 
 # Kill other jobs when we trigger this workflow by sending new commits
 # to the PR.
