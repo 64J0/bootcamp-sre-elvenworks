@@ -96,9 +96,10 @@ TODO
 * Ideias
 
 - [X] Usar a infraestrutura na AWS;
-- [ ] Provisionar os componentes com Terraform;
+- [X] Provisionar os componentes com Terraform;
 - [ ] Gerenciar a configuração com Ansible;
 - [ ] Usar como exemplo de Literate DevOps;
+- [X] GitHub Action para verificar o formato e validar o código Terraform;
 - [ ] Criar GitHub Actions para automatizar o processo de provisionamento e
   destruição dos serviços;
 
