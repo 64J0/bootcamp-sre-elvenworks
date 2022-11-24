@@ -66,6 +66,8 @@ jobs:
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    env:
+      TF_VAR_profile: default
     defaults:
       run:
         working-directory: ./terraform
