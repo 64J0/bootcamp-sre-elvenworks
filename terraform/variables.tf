@@ -12,7 +12,7 @@ variable "availability_zone" {
 
 variable "tags" {
   type        = map(string)
-  description = "Key-value pais used to identify resources."
+  description = "Key-value pairs used to identify resources."
   default = {
     project-name = "wordpress-turbinado"
     author       = "vinicius.gajo"
