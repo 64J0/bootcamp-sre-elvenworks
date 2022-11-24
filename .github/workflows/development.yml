@@ -53,5 +53,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Terraform init
+        run: terraform init
       - name: Validate Terraform configuration
         run: terraform validate
