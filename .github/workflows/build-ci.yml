@@ -1,4 +1,4 @@
-name: "Build CI image"
+name: 'Build CI image'
 
 on:
   workflow_dispatch: # manual trigger
@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  BASE_IMAGE: "ghcr.io/64j0/bootcamp-sre-elvenworks/ci"
+  BASE_IMAGE: 'ghcr.io/64j0/bootcamp-sre-elvenworks/ci'
 
 jobs:
   build_and_push_container:
@@ -33,11 +33,11 @@ jobs:
         image: docker:20.10.17-dind
         env:
           # Tell docker CLI how to talk to Docker daemon.
-          DOCKER_HOST: "tcp://dockerdaemon:2375/"
+          DOCKER_HOST: 'tcp://dockerdaemon:2375/'
           # Use the overlayfs driver for improved performance.
           DOCKER_DRIVER: overlay2
           # Disable TLS since we're running inside local network.
-          DOCKER_TLS_CERTDIR: ""
+          DOCKER_TLS_CERTDIR: ''
     steps:
       - name: Add required packages
         run: |

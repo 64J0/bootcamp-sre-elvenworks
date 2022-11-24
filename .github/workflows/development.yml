@@ -1,4 +1,4 @@
-name: "Terraform development"
+name: 'Terraform development'
 
 on:
   pull_request:
@@ -26,7 +26,10 @@ jobs:
   fmt:
     runs-on: ubuntu-20.04
     container:
-      image: 
+      image: ghcr.io/64j0/bootcamp-sre-elvenworks/ci:TODO
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }} 
     defaults:
       run:
         working-directory: ./terraform
@@ -39,6 +42,11 @@ jobs:
   validate:
     runs-on: ubuntu-20.04
     needs: [fmt]
+    container:
+      image: ghcr.io/64j0/bootcamp-sre-elvenworks/ci:TODO
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     defaults:
       run:
         working-directory: ./terraform
