@@ -26,7 +26,7 @@ jobs:
   fmt:
     runs-on: ubuntu-20.04
     container:
-      image: ghcr.io/64j0/bootcamp-sre-elvenworks/ci:TODO
+      image: ghcr.io/64j0/bootcamp-sre-elvenworks/ci:local
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }} 
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-20.04
     needs: [fmt]
     container:
-      image: ghcr.io/64j0/bootcamp-sre-elvenworks/ci:TODO
+      image: ghcr.io/64j0/bootcamp-sre-elvenworks/ci:local
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
