@@ -36,9 +36,9 @@ resource "aws_subnet" "wordpress" {
   tags              = var.tags
 }
 
-resource "aws_security_group" "allow_https" {
-  name        = "allow_https"
-  description = "Allow HTTP through TLS inbound traffic"
+resource "aws_security_group" "wordpress_ec2" {
+  name        = "wordpress_ec2"
+  description = "Allow external connection to the wordpress ec2 instance"
   vpc_id      = aws_vpc.wordpress.id
 
   ingress {
@@ -47,16 +47,7 @@ resource "aws_security_group" "allow_https" {
     to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    # cidr_blocks = [aws_vpc.wordpress.cidr_block]
   }
-
-  tags = var.tags
-}
-
-resource "aws_security_group" "allow_http" {
-  name        = "allow_http"
-  description = "Allow HTTP inbound traffic"
-  vpc_id      = aws_vpc.wordpress.id
 
   ingress {
     description = "HTTP from everywhere"
@@ -64,16 +55,7 @@ resource "aws_security_group" "allow_http" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    # cidr_blocks = [aws_vpc.wordpress.cidr_block]
   }
-
-  tags = var.tags
-}
-
-resource "aws_security_group" "allow_ssh" {
-  name        = "allow_ssh"
-  description = "Allow SSH inbound traffic"
-  vpc_id      = aws_vpc.wordpress.id
 
   ingress {
     description = "SSH from everywhere"
@@ -84,6 +66,7 @@ resource "aws_security_group" "allow_ssh" {
     # cidr_blocks = [aws_vpc.wordpress.cidr_block]
   }
 
+  # All the egress traffic is enabled.
   egress {
     from_port   = 0
     to_port     = 0
@@ -116,7 +99,7 @@ resource "aws_key_pair" "curso_terraform" {
 resource "aws_instance" "wordpress" {
   ami                         = data.aws_ami.ubuntu_20_04.id
   instance_type               = "t2.micro"
-  vpc_security_group_ids      = [aws_security_group.allow_https.id, aws_security_group.allow_http.id, aws_security_group.allow_ssh.id]
+  vpc_security_group_ids      = [aws_security_group.wordpress_ec2.id]
   subnet_id                   = aws_subnet.wordpress.id
   associate_public_ip_address = true
   disable_api_stop            = false
@@ -124,6 +107,4 @@ resource "aws_instance" "wordpress" {
   key_name                    = aws_key_pair.curso_terraform.key_name
 
   tags = var.tags
-
-  depends_on = [aws_key_pair.curso_terraform]
 }
