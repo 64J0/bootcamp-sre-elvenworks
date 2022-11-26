@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 AS ci-environment
 
 # Use this to tell Github that this image belongs to that repository.
 LABEL org.opencontainers.image.source="https://github.com/64j0/bootcamp-sre-elvenworks"

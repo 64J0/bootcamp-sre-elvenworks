@@ -16,6 +16,7 @@ certifique-se ter as seguintes ferramentas disponíveis:
 
 + ~Terraform v1.3.5~
 + ~AWS CLI 2.8.12~
++ ~Docker version 20.10.21~
 
 ** IaC - Terraform
 
@@ -35,7 +36,22 @@ Para provisionar os serviços na AWS, use os comandos:
 
 ** Ansible
 
-TODO
++ Atenção: não está funcional por enquanto, devido à algumas limitações
+  relacionadas ao próprio Docker/containers.
+
+Para facilitar o desenvolvimento da configuração do Ansible, decidi fazer o
+provisionamento num container local primeiramente. O manifesto com as
+configurações desse container pode ser visto no arquivo ~./Dockerfile.Ansible~.
+
+#+BEGIN_SRC shell :tangle no
+  # criação do container
+  docker build -t "ansible-wordpress" -f "Dockerfile.Ansible" "."
+
+  # executando localmente
+  docker run -d -p 80:80 ansible-wordpress:latest
+  # para debugar
+  # docker run -p 80:80 -it --entrypoint="bash" ansible-wordpress:latest
+#+END_SRC
 
 * Requisitos & Critérios
 
