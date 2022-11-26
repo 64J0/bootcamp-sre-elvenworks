@@ -22,13 +22,13 @@
 # https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_user_module.html
 - name: "MySQL User Creation"
   mysql_user:
-    name: "wpuser"
-    password: "ashgfhA@sgf123g4ahjsgdyashdf"
+    name: "{{ wordpress_db_username }}"
+    password: "{{ wordpress_db_password }}"
     priv: "*.*:ALL"
-    host: "%"
-    login_unix_socket: "/var/run/mysqld/mysqld.sock"
-    login_password: ""
-    login_user: "root"
+    host: "{{ wordpress_db_host }}"
+    # login_unix_socket: "/var/run/mysqld/mysqld.sock"
+    # login_password: ""
+    # login_user: "root"
     state: present
     # check if the account was created
     # mysql -u wpuser -p"<PASSWORD>"
@@ -36,8 +36,8 @@
 # https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_db_module.html
 - name: "Wordpress DB in MySQL"
   mysql_db:
-    name: "wordpress"
-    login_unix_socket: "/var/run/mysqld/mysqld.sock"
+    name: "{{ wordpress_db_name }}"
+    # login_unix_socket: "/var/run/mysqld/mysqld.sock"
     state: present
     # check if the account was created
     # mysql -u wpuser -p"<PASSWORD>"

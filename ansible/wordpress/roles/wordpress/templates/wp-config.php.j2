@@ -20,17 +20,17 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wordpress' );
+define( 'DB_NAME', '{{ wordpress_db_name }}' );
 
 /** Database username */
-define( 'DB_USER', 'wpuser' );
+define( 'DB_USER', '{{ wordpress_db_username }}' );
 
 /** Database password */
-define( 'DB_PASSWORD', 'ashgfhA@sgf123g4ahjsgdyashdf' );
+define( 'DB_PASSWORD', '{{ wordpress_db_password }}' );
 
 /** Database hostname */
 /** https://snippets.khromov.se/using-wordpress-with-mysql-unix-socket/ */
-define( 'DB_HOST', 'localhost:/var/run/mysqld/mysqld.sock' );
+define( 'DB_HOST', '{{ wordpress_db_host }}' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
