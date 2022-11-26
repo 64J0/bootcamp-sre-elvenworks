@@ -36,6 +36,9 @@ Para provisionar os serviços na AWS, use os comandos:
 
 ** Ansible
 
++ Atenção: não está funcional por enquanto, devido à algumas limitações
+  relacionadas ao próprio Docker/containers.
+
 Para facilitar o desenvolvimento da configuração do Ansible, decidi fazer o
 provisionamento num container local primeiramente. O manifesto com as
 configurações desse container pode ser visto no arquivo ~./Dockerfile.Ansible~.
@@ -46,6 +49,8 @@ configurações desse container pode ser visto no arquivo ~./Dockerfile.Ansible~
 
   # executando localmente
   docker run -d -p 80:80 ansible-wordpress:latest
+  # para debugar
+  # docker run -p 80:80 -it --entrypoint="bash" ansible-wordpress:latest
 #+END_SRC
 
 * Requisitos & Critérios
