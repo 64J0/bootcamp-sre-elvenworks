@@ -3,23 +3,29 @@
 - name: "MySQL-Server Installation"
   apt:
     pkg:
-      - python3-apt
-      - python3-mysqldb
-      - python3-pymysql
-      - mysql-server
-      - mysql-client
-      - libmysqlclient-dev
+    - mysql-server
+    - mysql-client
+    - python3-mysqldb
+    - libmysqlclient-dev
+    - python3-pymysql
     update_cache: yes
     # Check if mysql service is running
+    # sudo service mysql status
+    # sudo service mysql start
     # sudo systemctl status mysql.service
 
 # https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_user_module.html
 - name: "MySQL User Creation"
+  vars_files:
+    - /defaults/main.yml
   mysql_user:
-    name: "wpuser"
-    password: "ashgfhA@sgf123g4ahjsgdyashdf"
+    name: {{ mysql_username }}
+    password: {{ mysql_password }}
     priv: "*.*:ALL"
     host: "%"
+    login_unix_socket: "/var/run/mysqld/mysqld.sock"
+    login_password: ""
+    login_user: "root"
     state: present
     # check if the account was created
     # mysql -u wpuser -p"<PASSWORD>"
@@ -28,6 +34,7 @@
 - name: "Wordpress DB in MySQL"
   mysql_db:
     name: "wordpress"
+    login_unix_socket: "/var/run/mysqld/mysqld.sock"
     state: present
     # check if the account was created
     # mysql -u wpuser -p"<PASSWORD>"

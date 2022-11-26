@@ -46,4 +46,4 @@
 - name: "Restart NGINX"
   service:
     name: nginx
-    status: restarted
+    state: restarted
