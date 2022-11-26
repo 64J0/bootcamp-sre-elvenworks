@@ -1,9 +1,20 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 AS ansible-base
 
 # update the repository sources list
-# and install dependencies
+# and install dependencies for ansible
 RUN apt-get update \
     && apt-get install -y \
     ansible \
     curl \
     && apt-get -y autoclean
+
+# https://duffney.io/containers-for-ansible-development/
+FROM ansible-base AS ansible-wordpress
+
+COPY ./ansible/wordpress /ansible/
+
+EXPOSE 80
+
+WORKDIR /ansible/
+
+ENTRYPOINT ["ansible-playbook", "wordpress.yml"]
