@@ -1,7 +1,8 @@
 server {
   listen 80;
   listen [::]:80;
-  server_name www.example.com example.com;
+  # server_name www.example.com example.com;
+  server_name localhost;
   root /var/www/html/wordpress/;
   index index.php index.html index.htm index.nginx-debian.html;
 
