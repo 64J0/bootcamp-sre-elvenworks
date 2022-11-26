@@ -20,4 +20,4 @@ EXPOSE 80
 
 WORKDIR /ansible/
 
-ENTRYPOINT ["ansible-playbook", "wordpress.yml"]
+RUN ansible-playbook wordpress.yml

@@ -3,24 +3,27 @@
 - name: "MySQL-Server Installation"
   apt:
     pkg:
-    - mysql-server
-    - mysql-client
-    - python3-mysqldb
-    - libmysqlclient-dev
-    - python3-pymysql
+      - mysql-server
+      - mysql-client
+      - python3-mysqldb
+      - libmysqlclient-dev
+      - python3-pymysql
     update_cache: yes
     # Check if mysql service is running
     # sudo service mysql status
     # sudo service mysql start
     # sudo systemctl status mysql.service
 
+- name: "Restart MySQL"
+  service:
+    name: mysql
+    state: restarted
+    
 # https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_user_module.html
 - name: "MySQL User Creation"
-  vars_files:
-    - /defaults/main.yml
   mysql_user:
-    name: {{ mysql_username }}
-    password: {{ mysql_password }}
+    name: "wpuser"
+    password: "ashgfhA@sgf123g4ahjsgdyashdf"
     priv: "*.*:ALL"
     host: "%"
     login_unix_socket: "/var/run/mysqld/mysqld.sock"

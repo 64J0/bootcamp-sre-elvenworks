@@ -3,5 +3,5 @@
   hosts: localhost
   become: yes # become root
   roles:
-    # - mysql-server # does not work in Docker
+    - mysql-server
     - wordpress

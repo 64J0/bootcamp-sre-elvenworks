@@ -43,6 +43,11 @@
     group: www-data
     mode: '0755'
 
+- name: "Restart PHP"
+  service:
+    name: php7.4-fpm
+    state: restarted
+    
 - name: "Restart NGINX"
   service:
     name: nginx
