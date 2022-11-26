@@ -1,0 +1,34 @@
+---
+# https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_replication_module.html
+- name: "MySQL-Server Installation"
+  apt:
+    pkg:
+      - python3-apt
+      - python3-mysqldb
+      - python3-pymysql
+      - mysql-server
+      - mysql-client
+      - libmysqlclient-dev
+    update_cache: yes
+    # Check if mysql service is running
+    # sudo systemctl status mysql.service
+
+# https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_user_module.html
+- name: "MySQL User Creation"
+  mysql_user:
+    name: "wpuser"
+    password: "ashgfhA@sgf123g4ahjsgdyashdf"
+    priv: "*.*:ALL"
+    host: "%"
+    state: present
+    # check if the account was created
+    # mysql -u wpuser -p"<PASSWORD>"
+
+# https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_db_module.html
+- name: "Wordpress DB in MySQL"
+  mysql_db:
+    name: "wordpress"
+    state: present
+    # check if the account was created
+    # mysql -u wpuser -p"<PASSWORD>"
+    # show databases;
