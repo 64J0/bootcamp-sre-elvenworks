@@ -81,13 +81,21 @@ resource "aws_security_group" "wordpress_ec2" {
 # TODO: make the configuration using Ansible
 resource "aws_instance" "wordpress" {
   ami                         = var.ami
-  instance_type               = "t2.micro"
+  key_name                    = var.key_name
   vpc_security_group_ids      = [aws_security_group.wordpress_ec2.id]
   subnet_id                   = aws_subnet.wordpress.id
+  instance_type               = "t2.micro"
   associate_public_ip_address = true
   disable_api_stop            = false
   disable_api_termination     = false
-  key_name                    = var.key_name
+  monitoring                  = true
+  user_data                   = <<-EOF
+    #!/bin/bash
+    sudo apt update && sudo apt install ansible curl git unzip -y
+    cd /tmp
+    git clone https://github.com/64J0/bootcamp-sre-elvenworks
+    sudo ansible-playbook ansible/wordpress/wordpress.yml
+    EOF
 
   tags = var.tags
 }
