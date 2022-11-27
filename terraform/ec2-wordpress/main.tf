@@ -38,16 +38,17 @@ resource "aws_subnet" "wordpress" {
 
 resource "aws_security_group" "wordpress_ec2" {
   name        = "wordpress_ec2"
-  description = "Allow external connection to the wordpress ec2 instance"
+  description = "Allow external connection to the wordpress EC2 instance"
   vpc_id      = aws_vpc.wordpress.id
 
-  ingress {
-    description = "TLS from everywhere"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  # TODO: add SSL certificate
+  # ingress {
+  #   description = "TLS from everywhere"
+  #   from_port   = 443
+  #   to_port     = 443
+  #   protocol    = "tcp"
+  #   cidr_blocks = ["0.0.0.0/0"]
+  # }
 
   ingress {
     description = "HTTP from everywhere"
