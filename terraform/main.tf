@@ -30,3 +30,16 @@ module "ec2_wordpress" {
   profile           = var.profile
   tags              = var.tags
 }
+
+module "ec2_monitoring" {
+  source = "./ec2-monitoring"
+
+  ami               = data.aws_ami.ubuntu_20_04.id
+  key_name          = aws_key_pair.curso_terraform.key_name
+  public_key        = var.public_key
+  location          = var.location
+  availability_zone = var.availability_zone
+  canonical_id      = var.canonical_id
+  profile           = var.profile
+  tags              = var.tags
+}
