@@ -28,7 +28,7 @@ module "ec2_wordpress" {
   availability_zone = var.availability_zone
   canonical_id      = var.canonical_id
   profile           = var.profile
-  tags              = var.tags
+  tags              = merge(var.tags, { role = "wordpress" })
 }
 
 module "ec2_monitoring" {
@@ -41,5 +41,5 @@ module "ec2_monitoring" {
   availability_zone = var.availability_zone
   canonical_id      = var.canonical_id
   profile           = var.profile
-  tags              = var.tags
+  tags              = merge(var.tags, { role = "monitoring" })
 }
