@@ -12,7 +12,7 @@ O título do desafio foi: *Wordpress Turbinado na AWS*.
 * Instruções
 
 Para reproduzir o mesmo ambiente utilizado no desenvolvimento deste projeto,
-certifique-se ter as seguintes ferramentas disponíveis:
+certifique-se ter as seguintes ferramentas disponíveis no seu ambiente local:
 
 + ~Terraform v1.3.5~
 + ~AWS CLI 2.8.12~
