@@ -1,9 +1,6 @@
-variable "location" {}
-variable "availability_zone" {}
-variable "tags" {}
 variable "canonical_id" {}
-variable "profile" {}
 variable "public_key" {}
+variable "tags" {}
 
 variable "ami" {
   type        = string
@@ -14,4 +11,12 @@ variable "key_name" {
   type        = string
   description = "The .pem key name"
   default     = "curso_terraform"
+}
+
+variable "vpc_wordpress" {
+  description = "Virtual Private Cloud for the Wordpress project"
+}
+
+variable "subnet_wordpress" {
+  description = "The wordpress subnet that we're going to put this VM"
 }

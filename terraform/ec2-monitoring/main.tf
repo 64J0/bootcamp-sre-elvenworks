@@ -1,45 +1,7 @@
-# Create a VPC
-resource "aws_vpc" "monitoring" {
-  cidr_block       = "10.1.0.0/16"
-  instance_tenancy = "default"
-  tags             = var.tags
-}
-
-# 1. Internet gateway
-resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.monitoring.id
-  tags   = var.tags
-}
-
-# 2. Route table + rota 0.0.0.0/0 "apontando" para o Internet Gateway
-resource "aws_route_table" "monitoring_gw" {
-  vpc_id = aws_vpc.monitoring.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gw.id
-  }
-
-  tags = var.tags
-}
-
-# 3. Association da subnet com a route table
-resource "aws_route_table_association" "monitoring_subnet" {
-  subnet_id      = aws_subnet.monitoring.id
-  route_table_id = aws_route_table.monitoring_gw.id
-}
-
-resource "aws_subnet" "monitoring" {
-  vpc_id            = aws_vpc.monitoring.id
-  cidr_block        = "10.1.1.0/24"
-  availability_zone = var.availability_zone
-  tags              = var.tags
-}
-
 resource "aws_security_group" "monitoring_ec2" {
   name        = "monitoring_ec2"
   description = "Allow external connection to the monitoring EC2 instance"
-  vpc_id      = aws_vpc.monitoring.id
+  vpc_id      = var.vpc_wordpress_id
 
   # TODO: add SSL certificate
   # ingress {
