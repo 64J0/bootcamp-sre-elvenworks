@@ -13,11 +13,6 @@
     # sudo service mysql status
     # sudo service mysql start
     # sudo systemctl status mysql.service
-
-- name: "Restart MySQL"
-  service:
-    name: mysql
-    state: restarted
     
 # https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_user_module.html
 - name: "MySQL User Creation"
