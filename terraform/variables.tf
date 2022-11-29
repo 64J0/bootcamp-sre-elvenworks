@@ -38,4 +38,5 @@ variable "public_key" {
   type        = string
   default     = "ssh-rsa CHANGEME"
   description = "The SSH public key that is going to be stored in the EC2 VM to allow us to connect. It was generated with the command 'ssh-keygen -t rsa -b 2048 -f curso_terraform', and entering a passphrase."
+  sensitive   = true
 }
