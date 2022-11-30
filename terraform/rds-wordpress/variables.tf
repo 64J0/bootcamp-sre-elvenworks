@@ -1,6 +1,6 @@
-variables "tags" {}
-variables "db_username" {}
-variables "db_password" {}
+variable "tags" {}
+variable "db_username" {}
+variable "db_password" {}
 
 variable "vpc_wordpress" {
   description = "Virtual Private Cloud for the Wordpress project"
@@ -10,6 +10,6 @@ variable "wordpress_ec2_sg" {
   description = "Security group from the Wordpress EC2"
 }
 
-variables "subnets_wordpress_private" {
+variable "subnets_wordpress_private" {
   description = "The private subnets created for this RDS instance"
 }

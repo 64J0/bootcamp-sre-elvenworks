@@ -34,3 +34,17 @@ variable "public_key" {
   description = "The SSH public key that is going to be stored in the EC2 VM to allow us to connect. It was generated with the command 'ssh-keygen -t rsa -b 2048 -f curso_terraform', and entering a passphrase."
   sensitive   = true
 }
+
+variable "db_username" {
+  type        = string
+  default     = "changeme"
+  description = "The username that must be used to connect to the database"
+  sensitive   = true
+}
+
+variable "db_password" {
+  type        = string
+  default     = "changeme"
+  description = "The password that must be used to connect to the database"
+  sensitive   = true
+}
