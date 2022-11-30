@@ -36,6 +36,17 @@ module "ec2_wordpress" {
   tags             = merge(var.tags, { role = "wordpress" })
 }
 
+module "rds_wordpress" {
+  source = "./rds-wordpress"
+
+  db_username               = var.db_username
+  db_password               = var.db_password
+  vpc_wordpress             = module.network_wordpress.vpc_wordpress
+  wordpress_ec2_sg          = module.ec2_wordpress.wordpress_ec2_sg
+  subnets_wordpress_private = module.network_wordpress.subnets_wordpress_private
+  tags                      = merge(var.tags, { role = "database" })
+}
+
 # module "ec2_monitoring" {
 #   source = "./ec2-monitoring"
 

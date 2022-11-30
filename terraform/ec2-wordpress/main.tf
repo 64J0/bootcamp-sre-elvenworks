@@ -1,6 +1,6 @@
 resource "aws_security_group" "wordpress_ec2" {
   name        = "wordpress_ec2"
-  description = "Allow external connection to the wordpress EC2 instance"
+  description = "Security group for the Wordpress EC2 instance"
   vpc_id      = var.vpc_wordpress.id
 
   # TODO: add SSL certificate
@@ -26,7 +26,6 @@ resource "aws_security_group" "wordpress_ec2" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    # cidr_blocks = [aws_vpc.wordpress.cidr_block]
   }
 
   # All the egress traffic is enabled.
