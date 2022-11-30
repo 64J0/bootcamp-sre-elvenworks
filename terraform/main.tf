@@ -21,8 +21,7 @@ resource "aws_key_pair" "curso_terraform" {
 module "network_wordpress" {
   source = "./network-wordpress"
 
-  availability_zone = var.availability_zone
-  tags              = merge(var.tags, { role = "network" })
+  tags = merge(var.tags, { role = "network" })
 }
 
 module "ec2_wordpress" {
@@ -33,7 +32,7 @@ module "ec2_wordpress" {
   public_key       = var.public_key
   canonical_id     = var.canonical_id
   vpc_wordpress    = module.network_wordpress.vpc_wordpress
-  subnet_wordpress = module.network_wordpress.subnet_wordpress
+  subnet_wordpress = module.network_wordpress.subnet_wordpress_public
   tags             = merge(var.tags, { role = "wordpress" })
 }
 
@@ -45,6 +44,6 @@ module "ec2_wordpress" {
 #   public_key       = var.public_key
 #   canonical_id     = var.canonical_id
 #   vpc_wordpress    = module.network.vpc_wordpress
-#   subnet_wordpress = module.network.subnet_wordpress
+#   subnet_wordpress = module.network.subnet_wordpress_public
 #   tags             = merge(var.tags, { role = "monitoring" })
 # }

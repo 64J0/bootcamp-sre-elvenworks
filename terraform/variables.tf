@@ -4,12 +4,6 @@ variable "location" {
   description = "The region that this resource is going to be created. North Virginia by default."
 }
 
-variable "availability_zone" {
-  type        = string
-  default     = "us-east-1a"
-  description = "AZ for the subnet."
-}
-
 variable "tags" {
   type        = map(string)
   description = "Key-value pairs used to identify resources."
