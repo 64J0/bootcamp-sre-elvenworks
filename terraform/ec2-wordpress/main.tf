@@ -53,6 +53,14 @@ resource "aws_instance" "wordpress" {
     #!/bin/bash
     sudo apt update && sudo apt install ansible curl git unzip -y
     cd /tmp
+
+    tee -a ansible-vars << END
+    db_username = "${var.db_username}"
+    db_password = "${var.db_password}"
+    db_host = "${var.db_host}"
+    db_port = "${var.db_port}"
+    END
+
     git clone https://github.com/64J0/bootcamp-sre-elvenworks
     sudo ansible-playbook ansible/wordpress/wordpress.yml
     EOF

@@ -33,6 +33,10 @@ module "ec2_wordpress" {
   canonical_id     = var.canonical_id
   vpc_wordpress    = module.network_wordpress.vpc_wordpress
   subnet_wordpress = module.network_wordpress.subnet_wordpress_public
+  db_username      = var.db_username
+  db_password      = var.db_password
+  db_host          = module.rds_wordpress.database_endpoint
+  db_port          = module.rds_wordpress.database_port
   tags             = merge(var.tags, { role = "wordpress" })
 }
 
