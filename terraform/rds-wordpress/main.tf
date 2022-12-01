@@ -32,7 +32,7 @@ resource "aws_db_subnet_group" "mysql" {
 }
 
 resource "aws_db_instance" "wordpress_mysql" {
-  allocated_storage      = 4 # GB
+  allocated_storage      = 10 # GB
   engine                 = "mysql"
   engine_version         = "8.0.27"
   instance_class         = "db.t2.micro"
