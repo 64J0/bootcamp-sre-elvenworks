@@ -1,0 +1,7 @@
+---
+- name: "Wordpress Local Installation"
+  hosts: localhost # trigger the commands locally
+  become: yes # become root
+  roles:
+    - mysql-server
+    - wordpress
