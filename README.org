@@ -36,9 +36,9 @@ Para provisionar os serviços na AWS, use os comandos:
 
 *** Módulos Terraform
 
-- [ ] EC2 Wordpress.
+- [X] EC2 Wordpress.
 - [ ] EC2 monitoramento (Prometheus, Grafana e 1P).
-- [ ] RDS para o DB do Wordpress.
+- [X] RDS para o DB do Wordpress.
 - [ ] CDN/WAF na instância do Wordpress.
 
 ** Ansible
@@ -120,7 +120,7 @@ configurações desse container pode ser visto no arquivo ~./Dockerfile.Ansible~
 
 - [X] Usar a infraestrutura na AWS;
 - [X] Provisionar os componentes com Terraform;
-- [ ] Gerenciar a configuração com Ansible;
+- [X] Gerenciar a configuração com Ansible;
 - [ ] Usar como exemplo de Literate DevOps;
 - [X] GitHub Action para verificar o formato e validar o código Terraform;
 - [ ] Criar GitHub Actions para automatizar o processo de provisionamento e
