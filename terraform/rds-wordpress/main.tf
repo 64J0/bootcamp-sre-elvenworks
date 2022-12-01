@@ -4,11 +4,11 @@ resource "aws_security_group" "mysql_rds" {
   vpc_id      = var.vpc_wordpress.id
 
   ingress {
-    description = "MySQL traffic from Wordpress SG"
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
-    cidr_blocks = [var.wordpress_ec2_sg.id]
+    description     = "MySQL traffic from Wordpress SG"
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [var.wordpress_ec2_sg.id]
   }
 
   # All the egress traffic is enabled.
