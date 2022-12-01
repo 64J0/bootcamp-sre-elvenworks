@@ -1,82 +1,3 @@
-# Create a VPC
-resource "aws_vpc" "wordpress" {
-  cidr_block       = "10.0.0.0/16"
-  instance_tenancy = "default"
-  tags             = var.tags
-}
-
-# 1. Internet gateway
-resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.wordpress.id
-  tags   = var.tags
-}
-
-# 2. Route table + rota 0.0.0.0/0 "apontando" para o Internet Gateway
-resource "aws_route_table" "wordpress_gw" {
-  vpc_id = aws_vpc.wordpress.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gw.id
-  }
-
-  tags = var.tags
-}
-
-# 3. Association da subnet com a route table
-resource "aws_route_table_association" "wordpress_subnet" {
-  subnet_id      = aws_subnet.wordpress.id
-  route_table_id = aws_route_table.wordpress_gw.id
-}
-
-resource "aws_subnet" "wordpress" {
-  vpc_id            = aws_vpc.wordpress.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = var.availability_zone
-  tags              = var.tags
-}
-
-resource "aws_security_group" "wordpress_ec2" {
-  name        = "wordpress_ec2"
-  description = "Allow external connection to the wordpress ec2 instance"
-  vpc_id      = aws_vpc.wordpress.id
-
-  ingress {
-    description = "TLS from everywhere"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "HTTP from everywhere"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "SSH from everywhere"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    # cidr_blocks = [aws_vpc.wordpress.cidr_block]
-  }
-
-  # All the egress traffic is enabled.
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = var.tags
-}
-
 # Required to connect to the Wordpress VM
 # WARNING:
 # This key is stored in the terraform state.
@@ -87,8 +8,9 @@ resource "tls_private_key" "rsa_curso_terraform" {
 }
 
 resource "local_file" "rsa_curso_terraform" {
-  content  = tls_private_key.rsa_curso_terraform.private_key_pem
-  filename = "curso_terraform.pem"
+  content         = tls_private_key.rsa_curso_terraform.private_key_pem
+  filename        = "curso_terraform.pem"
+  file_permission = "0400"
 }
 
 resource "aws_key_pair" "curso_terraform" {
@@ -96,15 +18,47 @@ resource "aws_key_pair" "curso_terraform" {
   public_key = tls_private_key.rsa_curso_terraform.public_key_openssh
 }
 
-resource "aws_instance" "wordpress" {
-  ami                         = data.aws_ami.ubuntu_20_04.id
-  instance_type               = "t2.micro"
-  vpc_security_group_ids      = [aws_security_group.wordpress_ec2.id]
-  subnet_id                   = aws_subnet.wordpress.id
-  associate_public_ip_address = true
-  disable_api_stop            = false
-  disable_api_termination     = false
-  key_name                    = aws_key_pair.curso_terraform.key_name
+module "network_wordpress" {
+  source = "./network-wordpress"
 
-  tags = var.tags
+  tags = merge(var.tags, { role = "network" })
 }
+
+module "ec2_wordpress" {
+  source = "./ec2-wordpress"
+
+  ami              = data.aws_ami.ubuntu_20_04.id
+  key_name         = aws_key_pair.curso_terraform.key_name
+  public_key       = var.public_key
+  canonical_id     = var.canonical_id
+  vpc_wordpress    = module.network_wordpress.vpc_wordpress
+  subnet_wordpress = module.network_wordpress.subnet_wordpress_public
+  db_username      = var.db_username
+  db_password      = var.db_password
+  db_host          = module.rds_wordpress.database_endpoint
+  db_port          = module.rds_wordpress.database_port
+  tags             = merge(var.tags, { role = "wordpress" })
+}
+
+module "rds_wordpress" {
+  source = "./rds-wordpress"
+
+  db_username               = var.db_username
+  db_password               = var.db_password
+  vpc_wordpress             = module.network_wordpress.vpc_wordpress
+  subnets_wordpress_private = module.network_wordpress.subnets_wordpress_private
+  wordpress_ec2_sg          = module.ec2_wordpress.wordpress_ec2_sg
+  tags                      = merge(var.tags, { role = "database" })
+}
+
+# module "ec2_monitoring" {
+#   source = "./ec2-monitoring"
+
+#   ami              = data.aws_ami.ubuntu_20_04.id
+#   key_name         = aws_key_pair.curso_terraform.key_name
+#   public_key       = var.public_key
+#   canonical_id     = var.canonical_id
+#   vpc_wordpress    = module.network.vpc_wordpress
+#   subnet_wordpress = module.network.subnet_wordpress_public
+#   tags             = merge(var.tags, { role = "monitoring" })
+# }

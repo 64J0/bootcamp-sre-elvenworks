@@ -4,12 +4,6 @@ variable "location" {
   description = "The region that this resource is going to be created. North Virginia by default."
 }
 
-variable "availability_zone" {
-  type        = string
-  default     = "us-east-1a"
-  description = "AZ for the subnet."
-}
-
 variable "tags" {
   type        = map(string)
   description = "Key-value pairs used to identify resources."
@@ -38,4 +32,19 @@ variable "public_key" {
   type        = string
   default     = "ssh-rsa CHANGEME"
   description = "The SSH public key that is going to be stored in the EC2 VM to allow us to connect. It was generated with the command 'ssh-keygen -t rsa -b 2048 -f curso_terraform', and entering a passphrase."
+  sensitive   = true
+}
+
+variable "db_username" {
+  type        = string
+  default     = "changeme"
+  description = "The username that must be used to connect to the database"
+  sensitive   = true
+}
+
+variable "db_password" {
+  type        = string
+  default     = "changeme"
+  description = "The password that must be used to connect to the database"
+  sensitive   = true
 }

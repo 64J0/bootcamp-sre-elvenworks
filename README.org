@@ -12,7 +12,7 @@ O título do desafio foi: *Wordpress Turbinado na AWS*.
 * Instruções
 
 Para reproduzir o mesmo ambiente utilizado no desenvolvimento deste projeto,
-certifique-se ter as seguintes ferramentas disponíveis:
+certifique-se ter as seguintes ferramentas disponíveis no seu ambiente local:
 
 + ~Terraform v1.3.5~
 + ~AWS CLI 2.8.12~
@@ -33,6 +33,13 @@ Para provisionar os serviços na AWS, use os comandos:
   chmod 400 curso_terraform.pem # mude as permissões da chave
   ssh -i "curso_terraform.pem" ubuntu@<IP-EC2>
 #+END_SRC
+
+*** Módulos Terraform
+
+- [ ] EC2 Wordpress.
+- [ ] EC2 monitoramento (Prometheus, Grafana e 1P).
+- [ ] RDS para o DB do Wordpress.
+- [ ] CDN/WAF na instância do Wordpress.
 
 ** Ansible
 
