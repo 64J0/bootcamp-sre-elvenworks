@@ -1,0 +1,7 @@
+---
+rds_db_host: "change_me"
+rds_db_username: "change_me"
+rds_db_password: "change_me"
+wordpress_db_name: "wordpress"
+wordpress_db_username: "wpadmin"
+wordpress_db_password: "Wp@12345"

@@ -1,0 +1,37 @@
+---
+# https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_replication_module.html
+- name: "Install MySQL utils"
+  apt:
+    pkg:
+      - mysql-client
+      - python3-mysqldb
+      - libmysqlclient-dev
+      - python3-pymysql
+    update_cache: yes
+    
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html
+- name: "Create MySQL user for Wordpress"
+  ansible.builtin.shell: |
+    CREATE_USER="CREATE USER '{{ wordpress_db_username }}'@'localhost' IDENTIFIED BY '{{ wordpress_db_password }}';;"
+
+    mysql -h "{{ rds_db_host }}" -u "{{ rds_db_username }}" -p"{{ rds_db_password }}" -e "${CREATE_USER}"
+  args:
+    executable: /bin/bash
+
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html
+- name: "Create MySQL DB for Wordpress"
+  ansible.builtin.shell: |
+    CREATE_DB="CREATE DATABASE {{ wordpress_db_name }} DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
+
+    mysql -h "{{ rds_db_host }}" -u "{{ rds_db_username }}" -p"{{ rds_db_password }}" -e "${CREATE_DB}"
+  args:
+    executable: /bin/bash
+
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html
+- name: "Add Wordpress user permissions and privileges in MySQL DB"
+  ansible.builtin.shell: |
+    ASSIGN_PERMISSIONS="GRANT ALL ON {{ wordpress_db_name }}.* TO '{{ wordpress_db_username }}'@'localhost';FLUSH PRIVILEGES;"
+
+    mysql -h "{{ rds_db_host }}" -u "{{ rds_db_username }}" -p"{{ rds_db_password }}" -e "${ASSIGN_PERMISSIONS}"
+  args:
+    executable: /bin/bash
