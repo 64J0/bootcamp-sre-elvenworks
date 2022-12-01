@@ -68,7 +68,8 @@ resource "aws_instance" "wordpress" {
     END
 
     cp ./bootcamp-sre-elvenworks/ansible/wordpress-aws/roles/mysql-server/defaults/main.yml ./bootcamp-sre-elvenworks/ansible/wordpress-aws/roles/wordpress/defaults/main.yml
-    # sudo ansible-playbook ansible/wordpress/wordpress.yml
+    
+    # sudo ansible-playbook ansible/wordpress-aws/wordpress.yml
     EOF
 
   tags = var.tags
