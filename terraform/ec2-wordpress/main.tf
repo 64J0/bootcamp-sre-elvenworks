@@ -62,7 +62,7 @@ resource "aws_instance" "wordpress" {
     END
 
     git clone https://github.com/64J0/bootcamp-sre-elvenworks
-    sudo ansible-playbook ansible/wordpress/wordpress.yml
+    # sudo ansible-playbook ansible/wordpress/wordpress.yml
     EOF
 
   tags = var.tags
