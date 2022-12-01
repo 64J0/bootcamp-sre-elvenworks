@@ -54,14 +54,20 @@ resource "aws_instance" "wordpress" {
     sudo apt update && sudo apt install ansible curl git unzip -y
     cd /tmp
 
-    tee -a ansible-vars << END
-    db_username = "${var.db_username}"
-    db_password = "${var.db_password}"
-    db_host = "${var.db_host}"
-    db_port = "${var.db_port}"
+    git clone https://github.com/64J0/bootcamp-sre-elvenworks
+
+    tee -a ./bootcamp-sre-elvenworks/ansible/wordpress-aws/roles/mysql-server/defaults/main.yml << END
+    ---
+    rds_db_host: "${var.db_host}"
+    rds_db_port: "${var.db_port}"
+    rds_db_username: "${var.db_username}"
+    rds_db_password: "${var.db_password}"
+    wordpress_db_name: "wordpress"
+    wordpress_db_username: "wpadmin"
+    wordpress_db_password: "Wp@12345"
     END
 
-    git clone https://github.com/64J0/bootcamp-sre-elvenworks
+    cp ./bootcamp-sre-elvenworks/ansible/wordpress-aws/roles/mysql-server/defaults/main.yml ./bootcamp-sre-elvenworks/ansible/wordpress-aws/roles/wordpress/defaults/main.yml
     # sudo ansible-playbook ansible/wordpress/wordpress.yml
     EOF
 
