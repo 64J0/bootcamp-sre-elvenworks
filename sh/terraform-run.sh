@@ -2,11 +2,8 @@
 
 set -euo pipefail
 
-TF_VAR_db_username="${DB_USERNAME:-changeme}"
-TF_VAR_db_password="${DB_PASSWORD:-changeme}"
-
 echo "Checking for required environment variables..."
-if [ "${TF_VAR_db_username}" = "changeme" ] || [ "${TF_VAR_db_username}" = "changeme" ]
+if [ -z "${TF_VAR_db_username}" ] || [ -z "${TF_VAR_db_password}" ]
 then
     echo "Set the required environment variables before trying to use this script!"
     exit 1
