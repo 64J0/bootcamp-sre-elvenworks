@@ -56,6 +56,9 @@ resource "aws_instance" "wordpress" {
 
     git clone https://github.com/64J0/bootcamp-sre-elvenworks
 
+    # delete the default values
+    rm ./bootcamp-sre-elvenworks/ansible/wordpress-aws/roles/mysql-server/defaults/main.yml
+
     tee -a ./bootcamp-sre-elvenworks/ansible/wordpress-aws/roles/mysql-server/defaults/main.yml << END
     ---
     rds_db_host: "${var.db_host}"
