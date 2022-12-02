@@ -51,7 +51,7 @@ resource "aws_instance" "wordpress" {
   monitoring                  = true
   user_data                   = <<-EOF
     #!/bin/bash
-    sudo apt update && sudo apt install ansible curl git unzip -y
+    sudo apt update && sudo apt install ansible curl git nano unzip -y
     cd /tmp
 
     git clone https://github.com/64J0/bootcamp-sre-elvenworks
