@@ -1,9 +1,12 @@
 variable "canonical_id" {}
 variable "public_key" {}
-variable "db_username" {}
-variable "db_password" {}
-variable "db_host" {}
-variable "db_port" {}
+variable "rds_db_username" {}
+variable "rds_db_password" {}
+variable "rds_db_host" {}
+variable "rds_db_port" {}
+variable "wordpress_db_name" {}
+variable "wordpress_db_username" {}
+variable "wordpress_db_password" {}
 variable "tags" {}
 
 variable "ami" {

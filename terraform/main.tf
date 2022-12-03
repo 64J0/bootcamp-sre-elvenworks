@@ -27,17 +27,20 @@ module "network_wordpress" {
 module "ec2_wordpress" {
   source = "./ec2-wordpress"
 
-  ami              = data.aws_ami.ubuntu_20_04.id
-  key_name         = aws_key_pair.curso_terraform.key_name
-  public_key       = var.public_key
-  canonical_id     = var.canonical_id
-  vpc_wordpress    = module.network_wordpress.vpc_wordpress
-  subnet_wordpress = module.network_wordpress.subnet_wordpress_public
-  db_username      = var.db_username
-  db_password      = var.db_password
-  db_host          = module.rds_wordpress.database_endpoint
-  db_port          = module.rds_wordpress.database_port
-  tags             = merge(var.tags, { role = "wordpress" })
+  ami                   = data.aws_ami.ubuntu_20_04.id
+  key_name              = aws_key_pair.curso_terraform.key_name
+  public_key            = var.public_key
+  canonical_id          = var.canonical_id
+  vpc_wordpress         = module.network_wordpress.vpc_wordpress
+  subnet_wordpress      = module.network_wordpress.subnet_wordpress_public
+  rds_db_username       = var.rds_db_username
+  rds_db_password       = var.rds_db_password
+  rds_db_host           = module.rds_wordpress.database_endpoint
+  rds_db_port           = module.rds_wordpress.database_port
+  wordpress_db_name     = var.wordpress_db_name
+  wordpress_db_username = var.wordpress_db_username
+  wordpress_db_password = var.wordpress_db_password
+  tags                  = merge(var.tags, { role = "wordpress" })
 }
 
 module "rds_wordpress" {

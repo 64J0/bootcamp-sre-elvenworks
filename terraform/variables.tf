@@ -35,16 +35,36 @@ variable "public_key" {
   sensitive   = true
 }
 
-variable "db_username" {
+variable "rds_db_username" {
   type        = string
   default     = "changeme"
-  description = "The username that must be used to connect to the database"
+  description = "The username that must be used to connect to the RDS database"
   sensitive   = true
 }
 
-variable "db_password" {
+variable "rds_db_password" {
   type        = string
   default     = "changeme"
-  description = "The password that must be used to connect to the database"
+  description = "The password that must be used to connect to the RDS database"
+  sensitive   = true
+}
+
+variable "wordpress_db_name" {
+  type        = string
+  default     = "wordpress"
+  description = "The database that is going to be created inside the RDS instance for wordpress"
+}
+
+variable "wordpress_db_username" {
+  type        = string
+  default     = "wpadmin"
+  description = "The wordpress database username"
+  sensitive   = true
+}
+
+variable "wordpress_db_password" {
+  type        = string
+  default     = "Wp@12345"
+  description = "The wordpress database password"
   sensitive   = true
 }
