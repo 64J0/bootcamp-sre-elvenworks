@@ -17,4 +17,4 @@
 
 # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html
 - name: "Setup MySQL for Wordpress using shell script"
-  ansible.builtin.command: /tmp/setup-mysql.sh
+  command: /tmp/setup-mysql.sh
