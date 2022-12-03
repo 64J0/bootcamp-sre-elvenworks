@@ -4,6 +4,18 @@ variable "location" {
   description = "The region that this resource is going to be created. North Virginia by default."
 }
 
+variable "s3_bucket" {
+  type        = string
+  default     = "wordpress-turbinado-backend"
+  description = "The S3 backend bucket"
+}
+
+variable "s3_key" {
+  type        = string
+  default     = "wordpress-turbinado-key"
+  description = "The S3 backend key"
+}
+
 variable "tags" {
   type        = map(string)
   description = "Key-value pairs used to identify resources."

@@ -26,3 +26,15 @@ provider "aws" {
   # access_key = "my-access-key"
   # secret_key = "my-secret-key"
 }
+
+# TODO
+# Backend to store the Terraform state
+# terraform {
+#   backend "s3" {
+#     bucket         = var.s3_bucket
+#     key            = var.s3_key
+#     region         = var.location
+#     encrypt        = true
+#     dynamodb_table = "terraform-lock" # used for locking and consistency checking
+#   }
+# }
