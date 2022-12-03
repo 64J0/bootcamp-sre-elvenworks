@@ -128,7 +128,7 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
   variáveis, roles e coesão de código;
 - [X] Analisar a necessidade ou não do uso de um módulo na configuração do blog
   Wordpress;
-- [ ] Criar um projeto Ansible para configurar Wordpress no EC2;
+- [X] Criar um projeto Ansible para configurar Wordpress no EC2;
 - [X] Conhecer recurso ou módulos Terraform obrigatório (EC2, VPC, RDS) e não
   obrigatórios (Mecached, Load Balancer, Autoscaling, WAF, CloudFront) da AWS;
 - [X] Entender as principais estruturas do Terraform e a sua função (resources,
@@ -140,7 +140,7 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
   legibilidade de código;
 - [X] Criar um projeto Terraform com os recurso obrigatório (EC2, VPC, RDS) e
   não obrigatórios (Mecached, Load Balancer, Autoscaling, WAF, CloudFront);
-- [ ] Conhecer The Four Golden Signals (Latência, Tráfego, Erros e Saturação);
+- [X] Conhecer The Four Golden Signals (Latência, Tráfego, Erros e Saturação);
 - [ ] Entender a diferença entre Monitoramento e Observabilidade;
 - [ ] Aplicar conceitos SLAs, SLOs, SLIs e Error Budgets;
 - [ ] Analisar Indicadores(CPU, Memória, Disco e Request HTTP) ou The Four
@@ -249,6 +249,78 @@ Pode ser entendido como um CDN, "Content Delivery Network".
 
 Mais informações em: [[https://docs.aws.amazon.com/cloudfront/index.html][Amazon CloudFront Documentation]].
 
+** The "Four Golden Signals" do Monitoramento
+
+Os "quatro sinais dourados" são relacionados a conceitos abordados no livro
+"Site Reliability Engineering", escrito por engenheiros do Google, e que foi
+crucial na definição da posição de SRE em diversas empresas mundialmente.
+
+Em resumo, os quatro sinais são: latência, tráfego, erros e saturação. Estas são
+as métricas que o time de SRE deve focar primariamente para conseguir
+desempenhar seu papel de maneira efetiva, no monitoramento de sistemas
+distribuídos.
+
+Com base nessas métricas já é possível trazer vários insights para melhoria do
+sistema e detectar problemas de maneira mais direta.
+
+*** Latência
+
+O tempo gasto para servir uma requisição. É importante manter a distinção entre
+a latência de requisições bem-sucedidas e malsucedidas. Por exemplo, um erro
+HTTP 500 disparado devido à perda de conexão com um banco de dados ou outro
+serviço crítico do backend pode ser servido muito rapidamente; porém, em outros
+cenários isso pode levar a uma grande perda de performance da aplicação.
+
+Por isso é importante fazer a distinção principalmente entre a latência de
+requisições bem-sucedidas e falhas.
+
+*** Tráfego
+
+Uma medida da demanda que é aplicada ao sistema monitorado, medida em uma
+métrica específica para o sistema que seja de alto nível.
+
+Por exemplo, em um serviço web, essa medida é normalmente a quantidade de
+requisições HTTP por segundo. Em alguns casos ainda é feita a distinção entre
+cada tipo de requisição (e. g., conteúdo estático versus dinâmico).
+
+Em um sistema de transmissão de áudio, essa medida pode focar na razão de
+entrada/saída da rede, ou sessões concorrentes.
+
+Em um sistema de armazenamento chave-valor, essa medida pode ser escritas e
+leituras por segundo.
+
+*** Erros
+
+A porcentagem de requisições que falham, seja explicitamente (e.g., HTTP 500s),
+implicitamente (por exemplo, uma resposta HTTP 200, mas com conteúdo relacionado
+a falha), ou por política (por exemplo, "consideramos qualquer resposta que leve
+mais que um segundo para finalizar um erro").
+
+*** Saturação
+
+Quão "cheio" o seu serviço está. Uma medida fracionária do seu sistema,
+enfatizando os recursos que estão mais limitados (por exemplo, em um sistema
+limitado em memória, mostrar a memória; em um sistema limitado em entrada/saída,
+mostrar o valor de entrada/saída).
+
+Note que muitos sistemas degradam de performance mesmo antes de atingir 100% de
+utilização, então, ter um limite de utilização é essencial para manter os mesmos
+níveis de performance.
+
+*** Referência
+
+A versão digital do livro é disponibilizada gratuitamente pela própria Google
+junto a outros títulos do tema, e pode ser lida no seguinte link:
+https://sre.google/books/.
+
+Por fim, para uma explicação mais detalhada, vale a pena conferir o capítulo
+onde esse tópico é abordado no livro de Site Reliability Engineering. Link:
+[[https://sre.google/sre-book/monitoring-distributed-systems/][Chapter 6 - Monitoring Distributed Systems]].
+
+** Monitoramento x Observabilidade
+
+** SLAs, SLOs, SLIs e Error Budgets
+
 * Ideias
 
 - [X] Usar a infraestrutura na AWS;
@@ -270,3 +342,4 @@ Mais informações em: [[https://docs.aws.amazon.com/cloudfront/index.html][Amaz
 * Links Úteis
 
 + [[https://medium.com/dnx-labs/terraform-remote-states-in-s3-d74edd24a2c4][Terraform Remote States in S3]]
++ [[https://devops4solutions.com/monitoring-using-prometheus-and-grafana-on-aws-ec2/][Monitoring using Prometheus and Grafana on AWS EC2]]
