@@ -110,37 +110,37 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
 
 ** Critérios
 
-- [ ] Conhecer os principais serviços da AWS (EC2, VPC, RDS Memcached, Load
+- [X] Conhecer os principais serviços da AWS (EC2, VPC, RDS Memcached, Load
   Balancer, Autoscaling, WAF, CloudFront);
-- [ ] Entender a função dos principais serviços da AWS (EC2, VPC, RDS Memcached,
+- [X] Entender a função dos principais serviços da AWS (EC2, VPC, RDS Memcached,
   Load Balance, Autoscaling, WAF, CloudFront) e a sua correlação quando existir;
-- [ ] Aplicar boas práticas de mercado no provisionamento dos principais
+- [X] Aplicar boas práticas de mercado no provisionamento dos principais
   serviços AWS. Exemplo: Launch Template, Tags, Gerenciamento de Conta e
   Usuário, Controle de Data transfer (In/Out), Well Architected, FinOps;
-- [ ] Analisar a necessidade ou não do provisionamento de serviço na
+- [X] Analisar a necessidade ou não do provisionamento de serviço na
   infraestrutura;
-- [ ] Criar conta válida na AWS;
-- [ ] Conhecer Ansible, suas estruturas, módulos e comandos, usados para se
+- [X] Criar conta válida na AWS;
+- [X] Conhecer Ansible, suas estruturas, módulos e comandos, usados para se
   configurar o blog Wordpress;
-- [ ] Entender a função dos principais módulos usados para se configurar o blog
+- [X] Entender a função dos principais módulos usados para se configurar o blog
   Wordpress;
-- [ ] Aplicar boas práticas de mecado na configurção do blog Wordpress. Exemplo:
+- [X] Aplicar boas práticas de mecado na configurção do blog Wordpress. Exemplo:
   variáveis, roles e coesão de código;
-- [ ] Analisar a necessidade ou não do uso de um módulo na configuração do blog
+- [X] Analisar a necessidade ou não do uso de um módulo na configuração do blog
   Wordpress;
 - [ ] Criar um projeto Ansible para configurar Wordpress no EC2;
-- [ ] Conhecer recurso ou módulos Terraform obrigatório (EC2, VPC, RDS) e não
+- [X] Conhecer recurso ou módulos Terraform obrigatório (EC2, VPC, RDS) e não
   obrigatórios (Mecached, Load Balancer, Autoscaling, WAF, CloudFront) da AWS;
-- [ ] Entender as principais estruturas do Terraform e a sua função (resources,
+- [X] Entender as principais estruturas do Terraform e a sua função (resources,
   variaveis, outputs e módulos);
 - [ ] Aplicar as melhores práticas de mecado no provisionamento dos recursos na
   AWC com Terraform. Exemplo: variáveis, condicionais, loops, modularização e
   coesão de código;
-- [ ] Analisar a necessidade de refatoração para melhor manutenibilidade e
+- [X] Analisar a necessidade de refatoração para melhor manutenibilidade e
   legibilidade de código;
-- [ ] Criar um projeto Terraform com os recurso obrigatório (EC2, VPC, RDS) e
+- [X] Criar um projeto Terraform com os recurso obrigatório (EC2, VPC, RDS) e
   não obrigatórios (Mecached, Load Balancer, Autoscaling, WAF, CloudFront);
-- [ ] Conhecer The Four Golden Signals(Latência, Tráfego, Erros e Saturação);
+- [ ] Conhecer The Four Golden Signals (Latência, Tráfego, Erros e Saturação);
 - [ ] Entender a diferença entre Monitoramento e Observabilidade;
 - [ ] Aplicar conceitos SLAs, SLOs, SLIs e Error Budgets;
 - [ ] Analisar Indicadores(CPU, Memória, Disco e Request HTTP) ou The Four
@@ -148,9 +148,11 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
 - [ ] Criar um ambiente mínimo de Monitoramento ou Observabilidade, usando
   Prometheus, Grafana e 1P;
 
-* Serviços da AWS Utilizados
+* Conceitos
 
-** EC2
+** Serviços da AWS
+
+*** EC2 - Elastic Cloud Computing
 
 *EC2* é um acrônimo que significa "Elastic Cloud Computing". É o serviço de IaaS
 da AWS que fornece uma VM ligada à um datacenter gerenciado pela Amazon.
@@ -169,17 +171,83 @@ VM, e *Network*, que está relacionado à rede em que a VM irá operar.
 Por fim, após definir os requisitos do processo que será executado na VM,
 devemos levar em consideração o *preço* associado ao recurso.
 
-** VPC
+Mais informações em: [[https://docs.aws.amazon.com/ec2/index.html][Amazon Elastic Compute Cloud Documentation]].
 
-** RDS
+*** VPC - Virtual Private Cloud
 
-** Load Balancer
+VPC é um acrônimo para "Virtual Private Cloud". É um serviço usado para criação
+e gerenciamento de redes virtuais (privadas ou não) para conectar componentes
+dentro da cloud.
 
-** Autoscaling
+Mais informações em: [[https://docs.aws.amazon.com/vpc/][Amazon Virtual Private Cloud Documentation]].
 
-** WAF
+*** RDS - Relational Database Service
 
-** CloudFront (CDN)
+RDS é um acrônimo para "Amazon Relational Database Service". Este serviço é
+usado para facilitar o provisionammento, configuração e operação de bancos
+relacionais na nuvem.
+
+Mais informações em: [[https://docs.aws.amazon.com/rds/index.html][Amazon Relational Database Service Documentation]].
+
+*** ElastiCache
+
+O serviço Amazon ElastiCache foi pensado para facilitar a configuração,
+gerenciamento, e operação de ambientes distribuídos de cache em memória dentro
+da nuvem da AWS.
+
+Atualmente suporta os motores tanto do Redis quanto do Memcached, que são bancos
+de dados não-relacionais utilizados para armazenamento de cache em memória.
+
+Mais informações em: [[https://docs.aws.amazon.com/elasticache/index.html][Amazon ElastiCache Documentation]].
+
+*** Elastic Load Balancing
+
+O serviço Elastic Load Balancing distribui automaticamente o tráfego de entrada
+entre vários servidores, como instâncias de EC2, containers, e endereços de IP,
+em uma ou mais zonas de disponibilidade (Availability Zones).
+
+Este serviço monitora a saúde dos servidores registrados, e roteia o tráfego
+apenas para os processos sadios.
+
+Mais informações em: [[https://docs.aws.amazon.com/elasticloadbalancing/index.html][Elastic Load Balancing Documentation]].
+
+*** Auto Scaling
+
+A nuvem da Amazon provê múltiplos serviços que podem ser usados para escalar sua
+aplicação manualmente/automaticamente.
+
+Tratando especificamente de instâncias de EC2, o serviço Amazon EC2 Auto Scaling
+ajuda a garantir que o número correto de instâncias estejam disponíveis para
+lidar com a carga da sua aplicação. Para isso, é necessário criar coleções de
+instâncias EC2, chamadas "Auto Scaling groups", definindo o número mínimo e
+máximo de instâncias que devem estar disponíveis para a aplicação.
+
+Mais informações em: [[https://docs.aws.amazon.com/autoscaling/index.html][Auto Scaling Documentation]], [[https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html][What is Amazon EC2 Auto
+Scaling?]].
+
+*** WAF - Web Application Firewall
+
+WAF é um acrônimo para "Web Application Firewall". É um serviço que permite
+monitorar requisições WEB que são enviadas para distribuições do Amazon
+CloudFront, ou para um Application Load Balancer.
+
+É possível usar o AWS WAF para bloquear ou permitir as requisições com base em
+condições especificadas, como por exemplo, validação de endereços IP de origem
+da requisição, ou com base em valores contidos na própria requisição.
+
+Mais informações em: [[https://docs.aws.amazon.com/waf/index.html][AWS WAF Documentation]].
+
+*** CloudFront
+
+O serviço Amazon CloudFront acelera a distribuição de conteúdo web estático e
+dinâmico, por exemplo, arquivos .html, .css, .php, imagens, e arquivos de
+mídia. Quando os usuários requisitam seu conteúdo, o serviço CloudFront o
+entrega através de uma rede global de múltiplas localizações limite, garantindo
+baixa latência e alta performance.
+
+Pode ser entendido como um CDN, "Content Delivery Network".
+
+Mais informações em: [[https://docs.aws.amazon.com/cloudfront/index.html][Amazon CloudFront Documentation]].
 
 * Ideias
 
