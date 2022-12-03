@@ -23,15 +23,28 @@ certifique-se ter as seguintes ferramentas disponíveis no seu ambiente local:
 Para provisionar os serviços na AWS, use os comandos:
 
 #+BEGIN_SRC shell :tangle no
-  cd terraform/
+  # Pré-requisitos para executar o script:
+  #
+  # * Necessário:
+  #
+  # export TF_VAR_rds_db_username="databaseadmin"
+  # export TF_VAR_rds_db_password="veryStrongPassphrase12377GotIt"
+  #
+  # * Não necessário:
+  #
+  # export TF_VAR_wordpress_db_name="wordpress"
+  # export TF_VAR_wordpress_db_username="wpadmin"
+  # export TF_VAR_wordpress_db_password="Wp@12345"
 
-  # é necessário ajustar o valor em var.profile para o seu profile.
-  terraform init
-  terraform plan # verifique o plano
-  terraform apply
-
-  chmod 400 curso_terraform.pem # mude as permissões da chave
+  cd sh/
+  ./terraform-run.sh # y
+  cd ../terraform
   ssh -i "curso_terraform.pem" -o IdentitiesOnly=yes ubuntu@<IP-EC2>
+
+  # Para destruir o serviço:
+  #
+  # cd terraform/
+  # terraform destroy
 #+END_SRC
 
 *** Módulos Terraform
@@ -43,8 +56,24 @@ Para provisionar os serviços na AWS, use os comandos:
 
 ** Ansible
 
-+ Atenção: não está funcional por enquanto, devido à algumas limitações
-  relacionadas ao próprio Docker/containers.
+Para organizar os manifestos do Ansible, decidi separar as configurações
+específicas de cada ambiente numa pasta diferente. No momento temos apenas a
+configuração do wordpress para o ambiente local (~ansible/wordpress-local/~) e
+outra configuração para o ambiente da AWS (~ansible/wordpress-aws/~).
+
+Este segundo (~wordpress-aws~) é o que deve ser usado em conjunto com a
+configuração dos serviços do Terraform.
+
+*** wordpress-aws/
+
+Neste diretório estão os arquivos necessários para configurar e iniciar o
+serviço do Wordpress no ambiente provisionado com Terraform na AWS.
+
+*** wordpress-local/
+
++ Atenção: A configuração para ser executada no container Docker não está
+  funcional por enquanto, devido à algumas limitações relacionadas ao próprio
+  Docker.
 
 Para facilitar o desenvolvimento da configuração do Ansible, decidi fazer o
 provisionamento num container local primeiramente. O manifesto com as
@@ -61,6 +90,9 @@ configurações desse container pode ser visto no arquivo ~./Dockerfile.Ansible~
 #+END_SRC
 
 * Requisitos & Critérios
+
+Nesta seção estou mencionando a lista de requisitos e critérios adotados para o
+trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
 
 ** Requisitos
 
@@ -115,6 +147,22 @@ configurações desse container pode ser visto no arquivo ~./Dockerfile.Ansible~
   Golden Signals(Latência, Tráfego, Erros e Saturação);
 - [ ] Criar um ambiente mínimo de Monitoramento ou Observabilidade, usando
   Prometheus, Grafana e 1P;
+
+* Serviços da AWS Utilizados
+
+** EC2
+
+** VPC
+
+** RDS
+
+** Load Balancer
+
+** Autoscaling
+
+** WAF
+
+** CloudFront (CDN)
 
 * Ideias
 
