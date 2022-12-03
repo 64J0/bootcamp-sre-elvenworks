@@ -31,7 +31,7 @@ Para provisionar os serviços na AWS, use os comandos:
   terraform apply
 
   chmod 400 curso_terraform.pem # mude as permissões da chave
-  ssh -i "curso_terraform.pem" ubuntu@<IP-EC2>
+  ssh -i "curso_terraform.pem" -o IdentitiesOnly=yes ubuntu@<IP-EC2>
 #+END_SRC
 
 *** Módulos Terraform
