@@ -166,6 +166,9 @@ Além da imagem inicial da VM, outros aspectos que devem ser considerados num
 primeiro momento são: *Volume*, que está relacionado ao storage/armazenamento da
 VM, e *Network*, que está relacionado à rede em que a VM irá operar.
 
+Por fim, após definir os requisitos do processo que será executado na VM,
+devemos levar em consideração o *preço* associado ao recurso.
+
 ** VPC
 
 ** RDS
