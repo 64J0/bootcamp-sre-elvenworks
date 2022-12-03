@@ -152,6 +152,20 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
 
 ** EC2
 
+*EC2* é um acrônimo que significa "Elastic Cloud Computing". É o serviço de IaaS
+da AWS que fornece uma VM ligada à um datacenter gerenciado pela Amazon.
+
+A configuração inicial da VM é baseada numa imagem, que usando a terminologia
+específica da AWS é conhecida como *AMI*: "Amazon Machine Image".
+
+*AMI* é a imagem de uma máquina específica, um backup com várias configurações
+já feitas, incluindo o sistema operacional, e em alguns casos serviços já
+instalados e capazes de executar desde o boot.
+
+Além da imagem inicial da VM, outros aspectos que devem ser considerados num
+primeiro momento são: *Volume*, que está relacionado ao storage/armazenamento da
+VM, e *Network*, que está relacionado à rede em que a VM irá operar.
+
 ** VPC
 
 ** RDS
@@ -169,11 +183,12 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
 - [X] Usar a infraestrutura na AWS;
 - [X] Provisionar os componentes com Terraform;
 - [X] Gerenciar a configuração com Ansible;
-- [ ] Usar como exemplo de Literate DevOps;
++- [ ] Usar como exemplo de Literate DevOps;+
 - [X] GitHub Action para verificar o formato e validar o código Terraform;
 - [ ] Criar GitHub Actions para automatizar o processo de provisionamento e
   destruição dos serviços;
-
+- [ ] Salvar o estado do Terraform num bucket S3;
+  
 * AWS CLI
 
 ** Comandos Úteis
