@@ -141,7 +141,7 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
 - [X] Criar um projeto Terraform com os recurso obrigatório (EC2, VPC, RDS) e
   não obrigatórios (Mecached, Load Balancer, Autoscaling, WAF, CloudFront);
 - [X] Conhecer The Four Golden Signals (Latência, Tráfego, Erros e Saturação);
-- [ ] Entender a diferença entre Monitoramento e Observabilidade;
+- [X] Entender a diferença entre Monitoramento e Observabilidade;
 - [ ] Aplicar conceitos SLAs, SLOs, SLIs e Error Budgets;
 - [ ] Analisar Indicadores(CPU, Memória, Disco e Request HTTP) ou The Four
   Golden Signals(Latência, Tráfego, Erros e Saturação);
@@ -318,6 +318,21 @@ onde esse tópico é abordado no livro de Site Reliability Engineering. Link:
 [[https://sre.google/sre-book/monitoring-distributed-systems/][Chapter 6 - Monitoring Distributed Systems]].
 
 ** Monitoramento x Observabilidade
+
+De acordo com o livro [[https://www.oreilly.com/library/view/observability-engineering/9781492076438/][Observability Engineering]], ferramentas tradicionais de
+*monitoramento* funcionam verificando as condições do sistema em relação a
+valores conhecidos que indicam que algum erro ocorrido anteriormente está
+presente. É uma abordagem fundamentalmente reativa que funciona bem para
+identificar modos de falha identificados anteriormente.
+
+Em contraste, ferramentas de *observabilidade* funcionam permitindo a
+investigação exploratória iterativa para determinar sistematicamente onde e
+porque problemas de performance podem estar acontecendo. Observabilidade permite
+uma abordagem proativa para identificar qualquer modo de falha, tendo este
+ocorrido anteriormente ou não.
+
+Para informações mais detalhadas, vale a pena consultar a referência mencionada
+nessa seção.
 
 ** SLAs, SLOs, SLIs e Error Budgets
 
