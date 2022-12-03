@@ -198,3 +198,7 @@ devemos levar em consideração o *preço* associado ao recurso.
 
 + Listar os profiles: ~aws configure list-profiles~
 + Listar os buckets s3: ~aws s3 ls~
+
+* Links Úteis
+
++ [[https://medium.com/dnx-labs/terraform-remote-states-in-s3-d74edd24a2c4][Terraform Remote States in S3]]
