@@ -50,8 +50,9 @@ Para provisionar os serviços na AWS, use os comandos:
 *** Módulos Terraform
 
 - [X] EC2 Wordpress.
-- [ ] EC2 monitoramento (Prometheus, Grafana e 1P).
+- [X] EC2 monitoramento (Prometheus e Grafana).
 - [X] RDS para o DB do Wordpress.
+- [ ] Adicionar 1P ao módulo de monitoramento.
 - [ ] CDN/WAF na instância do Wordpress.
 
 ** Ansible
@@ -133,7 +134,7 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
   obrigatórios (Mecached, Load Balancer, Autoscaling, WAF, CloudFront) da AWS;
 - [X] Entender as principais estruturas do Terraform e a sua função (resources,
   variaveis, outputs e módulos);
-- [ ] Aplicar as melhores práticas de mecado no provisionamento dos recursos na
+- [X] Aplicar as melhores práticas de mecado no provisionamento dos recursos na
   AWC com Terraform. Exemplo: variáveis, condicionais, loops, modularização e
   coesão de código;
 - [X] Analisar a necessidade de refatoração para melhor manutenibilidade e
@@ -143,7 +144,7 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
 - [X] Conhecer The Four Golden Signals (Latência, Tráfego, Erros e Saturação);
 - [X] Entender a diferença entre Monitoramento e Observabilidade;
 - [X] Aplicar conceitos SLAs, SLOs, SLIs e Error Budgets;
-- [ ] Analisar Indicadores(CPU, Memória, Disco e Request HTTP) ou The Four
+- [X] Analisar Indicadores(CPU, Memória, Disco e Request HTTP) ou The Four
   Golden Signals(Latência, Tráfego, Erros e Saturação);
 - [ ] Criar um ambiente mínimo de Monitoramento ou Observabilidade, usando
   Prometheus, Grafana e 1P;
@@ -409,3 +410,8 @@ Engineering". Link: [[https://sre.google/sre-book/service-level-objectives/][Cha
 
 + [[https://medium.com/dnx-labs/terraform-remote-states-in-s3-d74edd24a2c4][Terraform Remote States in S3]]
 + [[https://devops4solutions.com/monitoring-using-prometheus-and-grafana-on-aws-ec2/][Monitoring using Prometheus and Grafana on AWS EC2]]
++ [[https://duffney.io/containers-for-ansible-development/][Containers for Ansible Development]]
++ [[https://markontech.com/wordpress/deploy-wordpress-on-docker-using-ansible/][Deploy WordPress On Docker Using Ansible]]
++ [[https://blog.opstree.com/2020/03/24/ansible-directory-structure-default-vs-vars/][Ansible directory structure (Default vs Vars)]]
++ [[https://github.com/wellingtonvidaleal/ansible-desafio-final-formacao-sre][wellingtonvidaleal/ansible-desafio-final-formacao-sre]]
++ [[https://github.com/diogolimaelven/ansible][diogolimaelven/ansible]]
