@@ -142,7 +142,7 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
   não obrigatórios (Mecached, Load Balancer, Autoscaling, WAF, CloudFront);
 - [X] Conhecer The Four Golden Signals (Latência, Tráfego, Erros e Saturação);
 - [X] Entender a diferença entre Monitoramento e Observabilidade;
-- [ ] Aplicar conceitos SLAs, SLOs, SLIs e Error Budgets;
+- [X] Aplicar conceitos SLAs, SLOs, SLIs e Error Budgets;
 - [ ] Analisar Indicadores(CPU, Memória, Disco e Request HTTP) ou The Four
   Golden Signals(Latência, Tráfego, Erros e Saturação);
 - [ ] Criar um ambiente mínimo de Monitoramento ou Observabilidade, usando
@@ -335,6 +335,57 @@ Para informações mais detalhadas, vale a pena consultar a referência menciona
 nessa seção.
 
 ** SLAs, SLOs, SLIs e Error Budgets
+
+*** Service Level Indicators - SLI
+
+Uma quantidade definida cuidadosamente para medir algum aspecto do nível de
+serviço que está sendo disponibilizado.
+
+A maioria dos serviços considera a *latência das requisições* como um SLI
+chave. Outro SLI comum inclui a *taxa de erros*, normalmente expressa como uma
+fração de todas as requisições recebidas, e a *transferência do sistema*
+(throughput), normalmente medido em requisições por segundo.
+
+Essas medidas são normalmente agregadas para facilitar a análise posterior, além
+de reduzir a quantidade de dados a serem mantidos ao longo do tempo.
+
+Idealmente, o SLI mede diretamente o nível do serviço sendo avaliado, porém em
+algumas situações é necessário usar um proxy, pois a medição desejada pode ser
+complicada de se obter ou interpretar corretamente. Por exemplo, a latência no
+lado do cliente é geralmente uma ótima métrica relevante do ponto de vista do
+usuário, mas na maior parte dos casos só é possível medir a latência no
+servidor.
+
+Outro SLI importante no ponto de vista do SRE é a *disponibilidade*
+(availability), ou a fração de tempo em que um serviço é usável.
+
+*** Service Level Objectives - SLO
+
+Um valor alvo, ou espaço de valores, para o nível de serviço que é medido pelo
+SLI. Uma estrutura natural para o SLO é, portanto, ~SLI <= alvo~, ou ~limite
+inferior <= SLI <= limite superior~.
+
+*** Service Level Agreements - SLA
+
+Um contrato explícito ou implícito com os usuários do serviço que inclui
+consequências em casos onde a meta definida pelos SLOs é atingida (ou não). As
+consequências são mais facilmente reconhecíveis quando tem um caráter
+financeiro, mas pode assumir outras formas.
+
+Uma maneira simples de saber a diferença entre um SLO e um SLA é se perguntar "o
+que acontece se os SLOs não são atingidos?": se não existir uma consequência
+explícita, então você está certamente olhando para um SLO.
+
+*** Error Budgets
+
+Uma taxa que define quanto um SLO pode ser perdido, que geralmente é monitorado
+numa base diária ou semanal. Os níveis mais altos da hierarquia corporativa vão
+querer geralmente um relatório mensal ou trimestral geralmente.
+
+*** Referências
+
+A principal referência considerada nesta seção foi o livro "Site Reliability
+Engineering". Link: [[https://sre.google/sre-book/service-level-objectives/][Chapter 4 - Service Level Objectives]].
 
 * Ideias
 
