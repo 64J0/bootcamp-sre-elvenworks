@@ -1,0 +1,30 @@
+---
+# https://docs.ansible.com/ansible/2.9/modules/user_module.html
+- name: "Create node_exporter User"
+  user:
+    name: node_exporter
+    comment: node_exporter for Prometheus metrics
+    create_home: no
+
+- name: "Download and Unzip Node Exporter Package"
+  ansible.builtin.unarchive:
+    src: https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+# https://docs.ansible.com/ansible/2.9/modules/shell_module.html#shell-module
+- name: "Move node_exporter Package"
+  shell: |
+    cp /tmp/node_exporter-1.0.1.linux-amd64/node_exporter /usr/local/bin/node_exporter
+
+    rm -rf /tmp/node_exporter-1.0.1.linux-amd64.tar.gz node_exporter-1.0.1.linux-amd64
+
+- name: "Create the node_exporter.service File"
+  template:
+    src: node_exporter.service.j2
+    dest: /etc/systemd/system/node-exporter.service
+
+- name: "Restart node_exporter"
+  service:
+    name: node-exporter
+    state: restarted

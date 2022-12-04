@@ -2,6 +2,7 @@
 - name: "Wordpress Requirements Installation"
   apt:
     pkg:
+      - curl
       - nginx
       - unzip
       - php7.4-zip
