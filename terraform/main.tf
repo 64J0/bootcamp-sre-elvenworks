@@ -26,6 +26,7 @@ module "network_wordpress" {
 
 module "ec2_wordpress" {
   source = "./ec2-wordpress"
+  count  = 1
 
   ami                   = data.aws_ami.ubuntu_20_04.id
   key_name              = aws_key_pair.curso_terraform.key_name
