@@ -19,6 +19,13 @@
 
     rm -rf /tmp/prometheus-1.0.1.linux-amd64.tar.gz prometheus-1.0.1.linux-amd64
 
+- name: "Create Prometheus Config Directory if it does not Exist"
+  file:
+    path: /etc/prometheus
+    state: directory
+    owner: prometheus
+    mode: '0755'
+
 - name: "Create the Prometheus Configuration File"
   template:
     src: prometheus.yml.j2

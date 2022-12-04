@@ -1,2 +1,2 @@
 ---
-ec2_wordpress_public_ip: "changeme"
+ec2_wordpress_private_ip: "changeme"

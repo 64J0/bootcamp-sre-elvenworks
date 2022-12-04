@@ -21,6 +21,6 @@ variable "subnet_monitoring" {
   description = "The monitoring subnet that we're going to put this VM"
 }
 
-variable "ec2_wordpress_public_ip" {
-  description = "The public IP of the Wordpress VM"
+variable "ec2_wordpress_private_ip" {
+  description = "The private IP of the Wordpress VM"
 }

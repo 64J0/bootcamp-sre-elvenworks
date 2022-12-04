@@ -4,4 +4,4 @@ global:
 scrape_configs:
 - job_name: node
   static_configs:
-  - targets: ['{{ ec2_wordpress_public_ip }}:9100']
+  - targets: ['{{ ec2_wordpress_private_ip }}:9100']

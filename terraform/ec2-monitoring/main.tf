@@ -61,7 +61,7 @@ resource "aws_instance" "monitoring" {
 
     tee -a ./bootcamp-sre-elvenworks/ansible/monitoring-aws/roles/prometheus/defaults/main.yml << END
     ---
-    ec2_wordpress_public_ip: "${var.ec2_wordpress_public_ip}"
+    ec2_wordpress_private_ip: "${var.ec2_wordpress_private_ip}"
     END
 
     # sudo ansible-playbook ansible/monitoring-aws/monitoring.yml
