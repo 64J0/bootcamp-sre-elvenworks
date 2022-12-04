@@ -37,8 +37,8 @@ resource "aws_db_instance" "wordpress_mysql" {
   engine_version         = "8.0.27"
   instance_class         = "db.t2.micro"
   db_name                = "wordpress"
-  username               = var.db_username
-  password               = var.db_password
+  username               = var.rds_db_username
+  password               = var.rds_db_password
   db_subnet_group_name   = aws_db_subnet_group.mysql.id
   vpc_security_group_ids = [aws_security_group.mysql_rds.id]
   skip_final_snapshot    = true

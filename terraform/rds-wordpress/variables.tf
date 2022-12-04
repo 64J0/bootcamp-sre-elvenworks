@@ -1,6 +1,6 @@
 variable "tags" {}
-variable "db_username" {}
-variable "db_password" {}
+variable "rds_db_username" {}
+variable "rds_db_password" {}
 
 variable "vpc_wordpress" {
   description = "Virtual Private Cloud for the Wordpress project"
