@@ -27,3 +27,7 @@ variable "vpc_wordpress" {
 variable "subnet_wordpress" {
   description = "The wordpress subnet that we're going to put this VM"
 }
+
+variable "monitoring_ec2_sg" {
+  description = "The SG for the monitoring instance that is whitelisted to request the node_exporter data in this VM"
+}

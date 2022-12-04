@@ -17,6 +17,10 @@ variable "vpc_wordpress" {
   description = "Virtual Private Cloud for the Wordpress project"
 }
 
-variable "subnet_wordpress" {
-  description = "The wordpress subnet that we're going to put this VM"
+variable "subnet_monitoring" {
+  description = "The monitoring subnet that we're going to put this VM"
+}
+
+variable "ec2_wordpress_public_ip" {
+  description = "The public IP of the Wordpress VM"
 }

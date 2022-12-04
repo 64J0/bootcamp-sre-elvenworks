@@ -1,5 +1,5 @@
 ---
-- name: "Wordpress Local Installation"
+- name: "Wordpress AWS Installation"
   hosts: localhost # trigger the commands locally
   become: yes # become root
   roles:

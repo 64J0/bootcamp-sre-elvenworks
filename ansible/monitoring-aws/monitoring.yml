@@ -1,0 +1,8 @@
+---
+- name: "Monitoring Stack Installation: Prometheus, Grafana"
+  hosts: localhost # trigger the commands locally
+  become: yes # become root
+  roles:
+    - prometheus
+    - grafana
+    # - one-platform

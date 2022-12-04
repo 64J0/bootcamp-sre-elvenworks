@@ -1,0 +1,35 @@
+---
+# https://docs.ansible.com/ansible/2.9/modules/user_module.html
+- name: "Create prometheus User"
+  user:
+    name: prometheus
+    comment: prometheus user
+    create_home: no
+
+- name: "Download and Unzip Prometheus Package"
+  ansible.builtin.unarchive:
+    src: https://github.com/prometheus/prometheus/releases/download/v1.0.1/prometheus-1.0.1.linux-amd64.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+# https://docs.ansible.com/ansible/2.9/modules/shell_module.html#shell-module
+- name: "Move prometheus Package"
+  shell: |
+    cp /tmp/prometheus-1.0.1.linux-amd64/prometheus /usr/local/bin/prometheus
+
+    rm -rf /tmp/prometheus-1.0.1.linux-amd64.tar.gz prometheus-1.0.1.linux-amd64
+
+- name: "Create the Prometheus Configuration File"
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+
+- name: "Create the prometheus.service File"
+  template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+
+- name: "Restart prometheus Service"
+  service:
+    name: prometheus
+    state: restarted

@@ -40,6 +40,7 @@ module "ec2_wordpress" {
   wordpress_db_name     = var.wordpress_db_name
   wordpress_db_username = var.wordpress_db_username
   wordpress_db_password = var.wordpress_db_password
+  monitoring_ec2_sg     = module.ec2_monitoring.monitoring_ec2_sg
   tags                  = merge(var.tags, { role = "wordpress" })
 }
 
@@ -54,14 +55,15 @@ module "rds_wordpress" {
   tags                      = merge(var.tags, { role = "database" })
 }
 
-# module "ec2_monitoring" {
-#   source = "./ec2-monitoring"
+module "ec2_monitoring" {
+  source = "./ec2-monitoring"
 
-#   ami              = data.aws_ami.ubuntu_20_04.id
-#   key_name         = aws_key_pair.curso_terraform.key_name
-#   public_key       = var.public_key
-#   canonical_id     = var.canonical_id
-#   vpc_wordpress    = module.network.vpc_wordpress
-#   subnet_wordpress = module.network.subnet_wordpress_public
-#   tags             = merge(var.tags, { role = "monitoring" })
-# }
+  ami                     = data.aws_ami.ubuntu_20_04.id
+  key_name                = aws_key_pair.curso_terraform.key_name
+  public_key              = var.public_key
+  canonical_id            = var.canonical_id
+  vpc_wordpress           = module.network_wordpress.vpc_wordpress
+  subnet_wordpress        = module.network_wordpress.subnet_wordpress_public
+  ec2_wordpress_public_ip = module.ec2_wordpress.public_ip
+  tags                    = merge(var.tags, { role = "monitoring" })
+}

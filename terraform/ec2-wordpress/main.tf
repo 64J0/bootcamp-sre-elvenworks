@@ -28,6 +28,14 @@ resource "aws_security_group" "wordpress_ec2" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description     = "Prometheus scrapping data from node_exporter"
+    from            = 9100
+    to              = 9100
+    protocol        = "tcp"
+    security_groups = [var.monitoring_ec2_sg.id]
+  }
+
   # All the egress traffic is enabled.
   egress {
     from_port   = 0
@@ -73,7 +81,7 @@ resource "aws_instance" "wordpress" {
 
     cp ./bootcamp-sre-elvenworks/ansible/wordpress-aws/roles/mysql-server/defaults/main.yml ./bootcamp-sre-elvenworks/ansible/wordpress-aws/roles/wordpress/defaults/main.yml
     
-    # sudo ansible-playbook ./bootcamp-sre-elvenworks/ansible/wordpress-aws/wordpress.yml
+    sudo ansible-playbook ./bootcamp-sre-elvenworks/ansible/wordpress-aws/wordpress.yml
     EOF
 
   tags = var.tags

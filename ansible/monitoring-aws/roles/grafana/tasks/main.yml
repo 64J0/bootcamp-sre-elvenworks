@@ -1,0 +1,30 @@
+---
+# https://docs.ansible.com/ansible/latest/collections/community/mysql/mysql_replication_module.html
+- name: "Install Grafana utils"
+  apt:
+    pkg:
+      - apt-transport-https
+      - software-properties-common
+      - wget
+    update_cache: yes
+
+# https://docs.ansible.com/ansible/2.9/modules/user_module.html
+- name: "Create grafana User"
+  user:
+    name: grafana
+    comment: grafana user
+    create_home: no
+
+- name: "Download and Unzip Grafana Package"
+  ansible.builtin.unarchive:
+    src: https://dl.grafana.com/oss/release/grafana_7.3.4_amd64.deb
+    dest: /tmp/
+    remote_src: yes
+
+- name: "Install Grafana dpkg"
+  command: dpkg -i /tmp/grafana_7.3.4_amd64.deb
+
+- name: "Restart grafana Service"
+  service:
+    name: grafana-server
+    state: restarted
