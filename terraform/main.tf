@@ -63,7 +63,7 @@ module "ec2_monitoring" {
   public_key              = var.public_key
   canonical_id            = var.canonical_id
   vpc_wordpress           = module.network_wordpress.vpc_wordpress
-  subnet_wordpress        = module.network_wordpress.subnet_wordpress_public
+  subnet_monitoring       = module.network_wordpress.subnet_wordpress_public
   ec2_wordpress_public_ip = module.ec2_wordpress.public_ip
   tags                    = merge(var.tags, { role = "monitoring" })
 }

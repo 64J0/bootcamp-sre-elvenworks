@@ -30,8 +30,8 @@ resource "aws_security_group" "wordpress_ec2" {
 
   ingress {
     description     = "Prometheus scrapping data from node_exporter"
-    from            = 9100
-    to              = 9100
+    from_port       = 9100
+    to_port         = 9100
     protocol        = "tcp"
     security_groups = [var.monitoring_ec2_sg.id]
   }

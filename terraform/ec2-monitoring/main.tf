@@ -41,7 +41,7 @@ resource "aws_security_group" "monitoring_ec2" {
 resource "aws_instance" "monitoring" {
   ami                         = var.ami
   key_name                    = var.key_name
-  subnet_id                   = aws_subnet.monitoring.id
+  subnet_id                   = var.subnet_monitoring.id
   vpc_security_group_ids      = [aws_security_group.monitoring_ec2.id]
   instance_type               = "t2.micro"
   associate_public_ip_address = true
