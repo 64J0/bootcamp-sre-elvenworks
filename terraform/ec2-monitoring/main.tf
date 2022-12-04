@@ -64,7 +64,7 @@ resource "aws_instance" "monitoring" {
     ec2_wordpress_private_ip: "${var.ec2_wordpress_private_ip}"
     END
 
-    sudo ansible-playbook ansible/monitoring-aws/monitoring.yml
+    sudo ansible-playbook ./bootcamp-sre-elvenworks/ansible/monitoring-aws/monitoring.yml
     EOF
 
   tags = var.tags
