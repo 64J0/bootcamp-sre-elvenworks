@@ -51,6 +51,7 @@ resource "aws_instance" "wordpress" {
   monitoring                  = true
   user_data                   = <<-EOF
     #!/bin/bash
+    
     sudo apt update && sudo apt install ansible curl git nano unzip -y
     cd /tmp
 
