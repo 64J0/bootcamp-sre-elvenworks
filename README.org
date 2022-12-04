@@ -50,9 +50,8 @@ Para provisionar os serviços na AWS, use os comandos:
 *** Módulos Terraform
 
 - [X] EC2 Wordpress.
-- [X] EC2 monitoramento (Prometheus e Grafana).
+- [X] EC2 monitoramento (Prometheus, Grafana e 1P).
 - [X] RDS para o DB do Wordpress.
-- [ ] Adicionar 1P ao módulo de monitoramento.
 - [ ] CDN/WAF na instância do Wordpress.
 
 ** Ansible
@@ -146,7 +145,7 @@ trabalho final do bootcamp. Alguns destes pontos são apenas opcionais.
 - [X] Aplicar conceitos SLAs, SLOs, SLIs e Error Budgets;
 - [X] Analisar Indicadores(CPU, Memória, Disco e Request HTTP) ou The Four
   Golden Signals(Latência, Tráfego, Erros e Saturação);
-- [ ] Criar um ambiente mínimo de Monitoramento ou Observabilidade, usando
+- [X] Criar um ambiente mínimo de Monitoramento ou Observabilidade, usando
   Prometheus, Grafana e 1P;
 
 * Conceitos
