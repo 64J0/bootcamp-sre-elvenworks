@@ -3,7 +3,7 @@
 set -euo pipefail
 
 echo "Checking for required environment variables..."
-if [ -z "${TF_VAR_db_username}" ] || [ -z "${TF_VAR_db_password}" ]
+if [ -z "${TF_VAR_rds_db_username}" ] || [ -z "${TF_VAR_rds_db_password}" ]
 then
     echo "Set the required environment variables before trying to use this script!"
     exit 1
