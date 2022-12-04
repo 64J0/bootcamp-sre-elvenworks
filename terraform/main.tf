@@ -46,8 +46,8 @@ module "ec2_wordpress" {
 module "rds_wordpress" {
   source = "./rds-wordpress"
 
-  db_username               = var.db_username
-  db_password               = var.db_password
+  rds_db_username           = var.rds_db_username
+  rds_db_password           = var.rds_db_password
   vpc_wordpress             = module.network_wordpress.vpc_wordpress
   subnets_wordpress_private = module.network_wordpress.subnets_wordpress_private
   wordpress_ec2_sg          = module.ec2_wordpress.wordpress_ec2_sg
